@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white"
+    tools:context=".ui.company.AddCompany">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtLblCylinderNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/lblForm"
+            android:layout_marginTop="10dp"
+            android:text="@string/cylinder_no" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtCylinderNos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btnScanCylinders"
+                />
+            <ImageView
+                android:id="@+id/btnScanCylinders"
+                android:padding="20dp"
+                android:visibility="gone"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_baseline_qr_code_scanner_24"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtWarehouse"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Warehouse" />
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spWarehouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTint="@color/black"
+            app:popupTextAlignment="start"
+            android:textSize="20sp"
+            android:backgroundTint="@color/veryLightGray"
+            />
+        <TextView
+            android:id="@+id/txtManufactringDate"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/manufacturing_date" />
+        <EditText
+            android:id="@+id/edtManufacturingDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="@dimen/formEditTextSize"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+        <TextView
+            android:id="@+id/txtCompanyName"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/company_name" />
+        <EditText
+            android:id="@+id/edtCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="text"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address11" />
+        <EditText
+            android:id="@+id/edtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address2_" />
+        <EditText
+            android:id="@+id/edtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/city1" />
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/country1" />
+        <EditText
+            android:id="@+id/edtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/zipcode1" />
+        <EditText
+            android:id="@+id/edtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtvalveCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/valve_company_name" />
+        <EditText
+            android:id="@+id/edtValveCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="text"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtPurchaseDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/purchase_date" />
+        <EditText
+            android:id="@+id/edtPurchaesDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="@dimen/formEditTextSize"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
+        <TextView
+            android:id="@+id/txtExpireDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/expire_date" />
+        <EditText
+            android:id="@+id/edtExpireDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:textSize="@dimen/formEditTextSize"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+        <TextView
+            android:id="@+id/txtPaintExpireMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/paint_expire_month" />
+        <EditText
+            android:id="@+id/edtPaintExpireMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="@dimen/formEditTextSize"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtTestingPeriodMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/testingPeriodMonth" />
+        <EditText
+            android:id="@+id/edtTestingPeriodMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textSize="@dimen/formEditTextSize"
+            android:text="" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:text="@string/submit"/>
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:text="@string/cancel"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_qr_code"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/rvEdtQr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/edtQrCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/btnAddQR"
+            android:inputType="text"
+            android:text="" />
+
+        <Button
+            android:id="@+id/btnAddQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/btnScanCylinders"
+            android:background="@drawable/button_background"
+            android:text="Add"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/btnScanCylinders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_baseline_qr_code_scanner_24"
+            android:padding="30dp" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_qr_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonsLayout"
+        android:layout_below="@+id/rvEdtQr"
+        android:layout_marginTop="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_background"
+            android:text="@string/submit"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txtCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:text="20"
+            android:textColor="@color/read"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</RelativeLayout>

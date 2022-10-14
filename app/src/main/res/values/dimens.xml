@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">10dp</dimen>
+    <dimen name="nav_header_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="lblForm">15sp</dimen>
+    <dimen name="EditTextPadding">5dp</dimen>
+    <dimen name="address_in_list">15sp</dimen>
+    <dimen name="name_in_list">20sp</dimen>
+    <dimen name="radiolbl">5sp</dimen>
+    <dimen name="tabTextSize">16sp</dimen>
+    <dimen name="formEditTextSize">14dp</dimen>
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "166684463565",
+    "project_id": "simbagas-b4eeb",
+    "storage_bucket": "simbagas-b4eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166684463565:android:181f6dbbf97975fd76f484",
+        "android_client_info": {
+          "package_name": "com.track.cylinderdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166684463565-imqv83sa1dnfdbqpf07tgikbempbsms7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxExUDSYmlbWWGycf2DL-WkeWf9oMRhEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "166684463565-imqv83sa1dnfdbqpf07tgikbempbsms7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

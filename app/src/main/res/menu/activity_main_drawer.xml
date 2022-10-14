@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:id="@+id/all_menus"
+           android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard_24px"
+            android:title="@string/dashboard" />
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/ic_apartment_24px"
+            android:title="@string/company" >
+
+        </item>
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_people_24px"
+            android:title="@string/user" />
+        <item
+            android:id="@+id/nav_acknowledge"
+            android:icon="@drawable/ic_rate_review_24px"
+            android:title="@string/acknowledge" />
+        <item
+            android:id="@+id/nav_warehouse"
+            android:icon="@drawable/ic_storage_24px"
+            android:title="@string/warehouse" />
+        <item
+            android:id="@+id/nav_cylinder"
+            android:icon="@drawable/ic_fire_extinguisher_24px"
+            android:title="@string/cylinder" />
+        <item
+            android:id="@+id/nav_product"
+            android:icon="@drawable/ic_inventory_2_24px"
+            android:title="@string/product" />
+        <item
+            android:id="@+id/nav_cylinderproductmapping"
+            android:icon="@drawable/ic_baseline_attach_file_24"
+            android:title="@string/cylinderproductmapping" />
+        <item
+            android:id="@+id/nav_cylinderWarehouseMapping"
+            android:icon="@drawable/ic_baseline_swap_horizontal_circle_24"
+            android:title="@string/cylinder_warehouse_mapping" />
+        <item
+            android:id="@+id/nav_purchaseorder"
+            android:icon="@drawable/ic_baseline_edit_calendar_24"
+            android:title="@string/purchaseorder" />
+        <item
+            android:id="@+id/nav_delivery_note"
+            android:icon="@drawable/ic_baseline_assignment_24"
+            android:title="@string/delivery_note" />
+        <item
+            android:id="@+id/nav_sales_order"
+            android:icon="@drawable/ic_baseline_pending_actions_24"
+            android:title="@string/sales_order" />
+        <item
+            android:id="@+id/nav_return_order"
+            android:icon="@drawable/ic_baseline_reply_24"
+            android:title="@string/return_order" />
+        <item
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_baseline_addchart_24"
+            android:title="@string/repot" />
+
+        <item
+            android:id="@+id/nav_permssion"
+            android:icon="@drawable/ic_baseline_person_pin_24"
+            android:title="@string/permission" />
+        <item
+            android:id="@+id/nav_ro_cylinder_warehouse_mapping"
+            android:icon="@drawable/ic_baseline_person_pin_24"
+            android:title="@string/ROCylinderWarehouseMapping" />
+    </group>
+        <!--<item android:title="Communicate">
+            <menu>
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/nav_send"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Send" />
+            </menu>
+        </item>-->
+</menu>

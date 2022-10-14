@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white"
+    tools:context=".ui.company.AddCompany">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/txtLblName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/lblForm"
+            android:layout_marginTop="10dp"
+            android:text="@string/company_name" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtContactPerName"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_percen_name" />
+        <EditText
+            android:id="@+id/edtContactPerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAliaslbl"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alias1" />
+        <EditText
+            android:id="@+id/edtAlias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/companyType" />
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spCompanyType"
+            app:textTint="@color/black"
+            app:popupTextAlignment="start"
+            android:textSize="20sp"
+            android:backgroundTint="@color/veryLightGray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/txtName1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:visibility="gone"
+            android:text="@string/company_category" />
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spCompanyCatergory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTint="@color/black"
+            android:visibility="gone"
+            app:popupTextAlignment="start"
+            android:textSize="20sp"
+            android:backgroundTint="@color/veryLightGray"/>
+        <TextView
+            android:id="@+id/txtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address1" />
+        <EditText
+            android:id="@+id/edtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address2" />
+        <EditText
+            android:id="@+id/edtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/city" />
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/country" />
+        <EditText
+            android:id="@+id/edtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/zipcode" />
+        <EditText
+            android:id="@+id/edtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/per_month_requirement" />
+        <EditText
+            android:id="@+id/edtPerMonReq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/holding_capacity" />
+        <EditText
+            android:id="@+id/edtHoldingCapacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode111"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/cylinder_holding_credit_days" />
+        <EditText
+            android:id="@+id/edtCylHolCreDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtPinNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:inputType="textPersonName"
+            android:text="@string/texNumber" />
+
+        <EditText
+            android:id="@+id/edtTexNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/email" />
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textEmailAddress"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtSecondaryEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/secondary_email_" />
+        <EditText
+            android:id="@+id/edtSecondaryEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textEmailAddress"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/mobile" />
+        <EditText
+            android:id="@+id/edtMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtSecondaryMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/secondary_mobile_" />
+        <EditText
+            android:id="@+id/edtSecondaryMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtSecondaryM1obile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/referenceBy1" />
+        <EditText
+            android:id="@+id/edtReferenceby"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtSecondarysM1obile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/depositAmount1" />
+        <EditText
+            android:id="@+id/edtDepositAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="numberDecimal"
+            android:text="" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:text="@string/submit"/>
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                android:text="@string/cancel"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

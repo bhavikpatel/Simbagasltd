@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+
+    card_view:cardCornerRadius="4dp">
+    <RelativeLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtCylinderNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/imgArrow"
+            android:text="Simba Gas Ltd"
+            android:textColor="@color/black"
+            android:textSize="@dimen/name_in_list" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtCylinderNo"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/imgArrow"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtValManuf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/address_in_list"
+                android:text="@string/manufacturing_company" />
+        </LinearLayout>
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

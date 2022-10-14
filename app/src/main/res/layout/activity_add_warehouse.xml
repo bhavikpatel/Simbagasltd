@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.company.AddCompany">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/txtLblName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/lblForm"
+            android:layout_marginTop="10dp"
+            android:text="@string/name" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtDecription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/dectription" />
+        <EditText
+            android:id="@+id/edtDecription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="text"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address1" />
+        <EditText
+            android:id="@+id/edtAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/address2" />
+        <EditText
+            android:id="@+id/edtAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/city" />
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/country" />
+        <EditText
+            android:id="@+id/edtCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:text="" />
+        <TextView
+            android:id="@+id/txtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/lblForm"
+            android:text="@string/zipcode" />
+        <EditText
+            android:id="@+id/edtZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="number"
+            android:text="" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"/>
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

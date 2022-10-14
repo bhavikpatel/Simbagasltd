@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/rvParent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.user.AddUserActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lvAction"
+        android:layout_below="@+id/appBar"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/lvparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:id="@+id/lvCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtCompanyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/admin_name"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtAdminName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtUserNamelbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/username"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvAddress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtAddress1lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/address11"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtAddress1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtAddress1lb2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/address2_"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtAddress2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtCompanyLbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/city1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtCountrylbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/country1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtPhoneNolbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/phoneno"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPhoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvSecondaryMob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtSecondaryMobilelbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secondary_mobile_"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtSecondaryMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtEmaillbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/email1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvSecondaryMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtSecondaryEmaillbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/secondary_email_"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtSecondaryEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvPermonthReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtPermonthReqlbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/per_month_req"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtPermonthReq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvTextnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtTexNumberlbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/texNumber_"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtTexNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:id="@+id/lvUserRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_circle_24" />
+
+                <TextView
+                    android:id="@+id/txtUserRemarklbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/userRemark"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtUserRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text=""
+                android:textColor="@color/dark_gray"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/txtHoldingCapacity1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/per_month_requirement1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtReqPerMonth"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="number"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:paddingRight="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                android:text="" />
+            <TextView
+                android:id="@+id/txtHoldingCapacity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/holding_capacity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtHoldingCapacity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="number"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:paddingRight="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                android:text="" />
+            <TextView
+                android:id="@+id/txtHoldingCapacity11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/cylinder_holding_credit_days"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtHoldingCreditDay"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="number"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:paddingRight="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/txtAddress22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtDate"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                android:paddingRight="@dimen/EditTextPadding" />
+
+            <TextView
+                android:id="@+id/txtStatuslbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/status"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/spinarStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/veryLightGray"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:paddingRight="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                app:popupTextAlignment="start"
+                app:textTint="@color/black" />
+
+            <TextView
+                android:id="@+id/txtRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/remark"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lblForm"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:paddingLeft="@dimen/EditTextPadding"
+                android:paddingRight="@dimen/EditTextPadding"
+                android:textSize="@dimen/formEditTextSize"
+                android:text="" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/lvAction"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:text="@string/submit"/>
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:text="@string/cancel"/>
+    </LinearLayout>
+</RelativeLayout>

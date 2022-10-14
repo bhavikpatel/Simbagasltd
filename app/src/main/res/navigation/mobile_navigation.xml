@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_dashboard">
+    <fragment
+         android:id="@+id/nav_dashboard"
+         android:name="com.track.cylinderdelivery.ui.dashboard.DashboardFragment"
+         android:label="@string/dashboard"
+         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+       android:id="@+id/nav_company"
+       android:name="com.track.cylinderdelivery.ui.company.CompanyFragment"
+       android:label="@string/company"
+       tools:layout="@layout/fragment_company" />
+   <fragment
+        android:id="@+id/nav_user"
+        android:name="com.track.cylinderdelivery.ui.user.UserFragment"
+        android:label="@string/user_lst"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_cylinder"
+        android:name="com.track.cylinderdelivery.ui.cylinder.CylinderFragment"
+        android:label="@string/cylinder"
+        tools:layout="@layout/fragment_cylinder" />
+    <fragment
+        android:id="@+id/nav_product"
+        android:name="com.track.cylinderdelivery.ui.product.ProductFragment"
+        android:label="@string/product"
+        tools:layout="@layout/fragment_product" />
+    <fragment
+        android:id="@+id/nav_warehouse"
+        android:name="com.track.cylinderdelivery.ui.warehouse.WarehouseFragment"
+        android:label="@string/warehouse"
+        tools:layout="@layout/fragment_warehouse" />
+    <fragment
+        android:id="@+id/nav_acknowledge"
+        android:name="com.track.cylinderdelivery.ui.acknowledge.AcknowledgeFragment"
+        android:label="@string/acknowledge"
+        tools:layout="@layout/fragment_acknowledge" />
+    <fragment
+        android:id="@+id/nav_purchaseorder"
+        android:name="com.track.cylinderdelivery.ui.purchaseorder.PurchaseOrderFragment"
+        android:label="@string/purchaseorder"
+        tools:layout="@layout/fragment_purchaseorder" />
+    <fragment
+        android:id="@+id/nav_cylinderproductmapping"
+        android:name="com.track.cylinderdelivery.ui.cylinderproductmapping.CylinderProductMappingFragment"
+        android:label="@string/cylinderproductmapping"
+        tools:layout="@layout/fragment_cylinderproductmapping" />
+    <fragment
+        android:id="@+id/nav_report"
+        android:name="com.track.cylinderdelivery.ui.Report.ReportFragment"
+        android:label="@string/repot"
+        tools:layout="@layout/fragment_reportr" />
+    <fragment
+        android:id="@+id/nav_cylinderWarehouseMapping"
+        android:name="com.track.cylinderdelivery.ui.CylinderWarehouseMapping.CylinderWarehouseMappingFragment"
+        android:label="@string/cylinder_warehouse_mapping"
+        tools:layout="@layout/fragment_cylinder_warehouse_mapping" />
+    <fragment
+        android:id="@+id/nav_permssion"
+        android:name="com.track.cylinderdelivery.ui.permission.PermissionFragment"
+        android:label="@string/permission"
+        tools:layout="@layout/fragment_permission" />
+    <fragment
+        android:id="@+id/nav_delivery_note"
+        android:name="com.track.cylinderdelivery.ui.diliverynote.DeliveryNoteFragment"
+        android:label="@string/delivery_note"
+        tools:layout="@layout/fragment_delivery_note" />
+    <fragment
+        android:id="@+id/nav_sales_order"
+        android:name="com.track.cylinderdelivery.ui.salesorder.SalesOrderFragment"
+        android:label="@string/sales_order"
+        tools:layout="@layout/fragment_sales_order" />
+    <fragment
+        android:id="@+id/nav_return_order"
+        android:name="com.track.cylinderdelivery.ui.returnorder.ReturnOrderFragment"
+        android:label="@string/return_order"
+        tools:layout="@layout/fragment_return_order" />
+    <fragment
+        android:id="@+id/nav_ro_cylinder_warehouse_mapping"
+        android:name="com.track.cylinderdelivery.ui.RoCylinderWarehouseMapping.RoCylinderWarehouseFragment"
+        android:label="@string/ROCylinderWarehouseMapping"
+        tools:layout="@layout/fragment_cylinder_warehouse_mapping" />
+</navigation>

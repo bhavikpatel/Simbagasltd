@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@color/bgColor"
+    card_view:cardCornerRadius="5dp">
+
+    <RelativeLayout
+        android:id="@+id/rv_background"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/imgActioinUser"
+            android:text="Full Name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/name_in_list" />
+
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_marginLeft="5dp"
+            android:text="TextView"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/lvAddress"
+            android:layout_toLeftOf="@+id/imgActioinUser"
+            android:layout_below="@+id/tvCompanyName"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/imgAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_location_on_24" />
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="@dimen/address_in_list"
+                android:textColor="@color/lightGrey"
+                 />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/lvAddress"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
+            android:layout_toLeftOf="@+id/imgActioinUser"
+            android:gravity="center"
+            android:text="Active"
+            android:textSize="@dimen/address_in_list" />
+
+        <ImageView
+            android:id="@+id/imgActioinUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24" />
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

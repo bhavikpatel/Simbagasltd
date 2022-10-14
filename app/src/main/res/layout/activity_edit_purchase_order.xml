@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp"
+    tools:context=".ui.purchaseorder.AddPurchaseOrderActivity">
+    <LinearLayout
+        android:id="@+id/lvHading"
+        android:weightSum="2"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtClientInfo"
+            android:gravity="center"
+            android:text="@string/client_info"
+            android:layout_width="match_parent"
+            android:textColor="@color/green"
+            android:layout_weight="1"
+            android:textSize="@dimen/tabTextSize"
+            android:layout_height="40dp"/>
+        <TextView
+            android:id="@+id/txtPurchaseOrderDetail"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/purchase_order_detial"
+            android:layout_width="match_parent"
+            android:textColor="@color/lightGrey"
+            android:textSize="@dimen/tabTextSize"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lv_underline"
+        android:weightSum="2"
+        android:layout_below="@+id/lvHading"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtLineinfoUnderline"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:textSize="@dimen/tabTextSize"
+            android:layout_height="2dp"/>
+        <TextView
+            android:id="@+id/txtPurchasodUnderline"
+            android:gravity="center"
+            android:background="@color/lightGrey"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/tabTextSize"
+            android:layout_height="2dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lvTab1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lv_underline"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/txtPoNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/PO_Number"
+            android:textSize="@dimen/lblForm" />
+
+        <EditText
+            android:id="@+id/edtPoNumber"
+            android:textSize="@dimen/formEditTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"/>
+
+        <TextView
+            android:id="@+id/txtPODate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/PO_Date"
+            android:textSize="@dimen/lblForm" />
+
+        <EditText
+            android:id="@+id/edtPoDate"
+            android:textSize="@dimen/formEditTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/UserName"
+            android:textSize="@dimen/lblForm" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/NSUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/veryLightGray"
+            android:textSize="20sp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />
+
+        <TextView
+            android:id="@+id/txtPOGeneratedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/POGeneratedBy"
+            android:textSize="@dimen/lblForm" />
+
+        <EditText
+            android:id="@+id/edtPOGeneratedBy"
+            android:textSize="@dimen/formEditTextSize"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtClientPOReference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/ClientPORef"
+            android:textSize="@dimen/lblForm" />
+
+        <EditText
+            android:id="@+id/edtClientPOReference"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/formEditTextSize" />
+
+        <TextView
+            android:id="@+id/txtClientPOUploadlbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/ClientPOUpload"
+            android:textSize="@dimen/lblForm" />
+
+        <TextView
+            android:id="@+id/txtClientPOUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/NoFileChosen"
+            android:textSize="@dimen/lblForm" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSaveAndContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_and_continue"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_background"
+                android:text="@string/cancel"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/lvTab2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lv_underline"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/product"
+            android:textSize="@dimen/lblForm" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/NSProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtProductName"
+            android:backgroundTint="@color/veryLightGray"
+            android:textSize="20sp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />
+
+        <TextView
+            android:id="@+id/txtQuantity1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/NSProduct"
+            android:layout_marginTop="10dp"
+            android:text="@string/qty_of_gas"
+            android:textSize="@dimen/lblForm" />
+
+        <RelativeLayout
+            android:id="@+id/rvgasqty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtQuantity1">
+
+            <EditText
+                android:id="@+id/edtgasqty"
+                android:textSize="@dimen/formEditTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/txtUnit"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/txtUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="KG"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rvgasqty"
+            android:layout_marginTop="10dp"
+            android:text="@string/cylinderQunatity"
+            android:textSize="@dimen/lblForm" />
+
+        <EditText
+            android:id="@+id/edtQuantity"
+            android:textSize="@dimen/formEditTextSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtQuantity"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtQuantity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_background"
+            android:text="@string/add"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lvSubmit"
+            android:layout_below="@+id/btnAdd"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_above="@+id/lvSubmit"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/lvSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnLastSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSaveAsDraft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button_background"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/save_as_draft"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
