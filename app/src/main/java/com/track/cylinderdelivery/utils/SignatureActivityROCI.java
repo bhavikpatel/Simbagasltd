@@ -58,7 +58,7 @@ public class SignatureActivityROCI extends AppCompatActivity {
         final Drawable upArrow =  ContextCompat.getDrawable(context, R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(ContextCompat.getColor(context, R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
-        getSupportActionBar().setTitle("Customer Signature");
+        getSupportActionBar().setTitle("Signature");
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#734CEA'>Customer Signature</font>"));
         ROCI=getIntent().getIntExtra("ROCI",0);
         mClearButton = findViewById(R.id.clear_button);
