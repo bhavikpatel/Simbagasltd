@@ -28,6 +28,7 @@ public class SignUp extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent signupActivity=new Intent(context,Dashboard.class);
+                signupActivity.putExtra("Activity","");
                 startActivity(signupActivity);
                 finish();
             }

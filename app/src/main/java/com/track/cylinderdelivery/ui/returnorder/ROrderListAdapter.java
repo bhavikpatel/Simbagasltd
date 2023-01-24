@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.track.cylinderdelivery.R;
+import com.track.cylinderdelivery.ui.purchaseorder.PurchaseOrderDetailActivity;
 import com.track.cylinderdelivery.ui.salesorder.EditSalesOrderActivity;
 
 import java.util.ArrayList;
@@ -51,15 +52,19 @@ public class ROrderListAdapter extends RecyclerView.Adapter<ROrderListAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     int pos= (int) rvBackground.getTag ();
-                    if(podetailList.get(pos).get("status").equals("Draft")){
+                    /*if(podetailList.get(pos).get("status").equals("Draft")){
                         Intent intent=new Intent(context, EditReturnOrderActivity.class);
                         intent.putExtra("editData",podetailList.get(pos));
                         context.startActivity(intent);
                         context.overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);
-                    }
+                    }*/
+                    Intent intent=new Intent(context, ReturnOrderDetialActivity.class);
+                    intent.putExtra("editData",podetailList.get(pos));
+                    context.startActivity(intent);
+                    context.overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);
                 }
             });
-            imgArrow.setOnClickListener(new View.OnClickListener() {
+/*            imgArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pos= (int) imgArrow.getTag ();
@@ -70,7 +75,7 @@ public class ROrderListAdapter extends RecyclerView.Adapter<ROrderListAdapter.Vi
                         context.overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);
                     }
                 }
-            });
+            });*/
         }
     }
 
@@ -98,19 +103,19 @@ public class ROrderListAdapter extends RecyclerView.Adapter<ROrderListAdapter.Vi
                 "Created on: "+podetailList.get(position).get("strRODate"));
         holder.txtStatus.setText(podetailList.get(position).get("status"));
         if(podetailList.get(position).get("status").equals("Pending")){
-            holder.imgArrow.setImageResource(R.drawable.ic_baseline_pending_24);
-            holder.imgArrow.setVisibility(View.INVISIBLE);
+           // holder.imgArrow.setImageResource(R.drawable.ic_baseline_pending_24);
+          //  holder.imgArrow.setVisibility(View.INVISIBLE);
             holder.txtStatus.setVisibility(View.VISIBLE);
         }else if(podetailList.get(position).get("status").equals("Draft")){
-            holder.imgArrow.setImageResource(R.drawable.ic_baseline_edit_24);
-            holder.imgArrow.setVisibility(View.VISIBLE);
+            //holder.imgArrow.setImageResource(R.drawable.ic_baseline_edit_24);
+            //holder.imgArrow.setVisibility(View.VISIBLE);
             holder.txtStatus.setVisibility(View.VISIBLE);
         }else if(podetailList.get(position).get("status").equals("Completed")){
-            holder.imgArrow.setImageResource(R.drawable.ic_baseline_edit_24);
-            holder.imgArrow.setVisibility(View.INVISIBLE);
+           // holder.imgArrow.setImageResource(R.drawable.ic_baseline_edit_24);
+           // holder.imgArrow.setVisibility(View.INVISIBLE);
             holder.txtStatus.setVisibility(View.VISIBLE);
         }else {
-            holder.imgArrow.setVisibility(View.GONE);
+           // holder.imgArrow.setVisibility(View.GONE);
             holder.txtStatus.setVisibility(View.GONE);
         }
     }

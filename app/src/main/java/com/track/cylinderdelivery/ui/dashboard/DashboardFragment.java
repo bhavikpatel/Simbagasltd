@@ -94,6 +94,7 @@ public class DashboardFragment extends Fragment {
         Log.d("homeView==>",homeview+"");
         btnReceivCyl=(Button)root.findViewById(R.id.btnReceivCyl);
         btnHoldCyl=(Button)root.findViewById(R.id.btnHoldCyl);
+
         if(homeview.equals("SuperAdmin")){
             dataList=null;
             callReceivableCylinder();
@@ -103,7 +104,11 @@ public class DashboardFragment extends Fragment {
             btnReceivCyl.setVisibility(View.GONE);
             btnHoldCyl.setVisibility(View.GONE);
         }
-        logRegToken();
+        try {
+            logRegToken();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         btnReceivCyl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -529,8 +534,67 @@ public class DashboardFragment extends Fragment {
                         String msg = "FCM Registration token: " + token;
                         Log.d("FCM"+"==>", msg);
                         //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        if(!token.equals(settings.getString("token",""))) {
+                            SetFirebaseToken(token);
+                        }else {
+                            Log.d("FCM==>",settings.getString("token",""));
+                        }
                     }
                 });
         // [END log_reg_token]
+    }
+
+    private void SetFirebaseToken(String token) {
+
+        String url = MySingalton.getInstance().URL+"/Api/MobLogin/SetFirebaseToken?FirebaseToken="+token+
+                "&UserId="+settings.getString("userId","");
+        Log.d("request==>",url);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String Response) {
+                Log.d("resonse ==>",Response+"");
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("token",token);
+                editor.commit();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                Log.d("error==>",message+"");
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap map=new HashMap();
+                map.put("content-type","application/json");
+                return map;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(stringRequest);
     }
 }

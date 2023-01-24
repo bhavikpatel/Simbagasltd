@@ -357,6 +357,9 @@ public class ReturnOrderFragment extends Fragment {
                         map.put("strRODate",jsonArray.getJSONObject(i).getString("strRODate")+"");
                         map.put("username",jsonArray.getJSONObject(i).getString("username")+"");
                         map.put("rodm",jsonArray.getJSONObject(i).getString("rodm")+"");
+                        map.put("isDeletable",jsonArray.getJSONObject(i).getBoolean("isDeletable")+"");
+                        map.put("quantity",jsonArray.getJSONObject(i).getInt("quantity")+"");
+
 
                         ROrderList.add(map);
                     }

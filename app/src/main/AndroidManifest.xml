@@ -16,9 +16,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
-
-
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -30,23 +27,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.returnorder.ReturnOrderDetialActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent"/>
         <!-- [START fcm_default_icon] -->
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+ Set custom default icon. This is used when no icon is set for incoming notification messages.
+             See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/app_icon" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <!-- [END fcm_default_icon] -->
+            android:resource="@color/colorAccent" /> <!-- [END fcm_default_icon] -->
         <!-- [START fcm_default_channel] -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-        <!-- [END fcm_default_channel] -->
+            android:value="@string/default_notification_channel_id" /> <!-- [END fcm_default_channel] -->
         <activity
             android:name=".ui.diliverynote.DNFilterActivity"
             android:screenOrientation="portrait"
@@ -103,6 +107,10 @@
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".utils.SignatureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".utils.SignatureActivityROCI"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity

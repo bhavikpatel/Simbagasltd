@@ -7,32 +7,23 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.track.cylinderdelivery.ui.BaseActivity;
-import com.track.cylinderdelivery.ui.dashboard.DashboardFragment;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import org.json.JSONArray;
@@ -49,11 +40,23 @@ public class Dashboard extends BaseActivity {
     private SharedPreferences settings;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     JSONArray accessMOdelarray;
+    String menuNumber="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         context=this;
+        String activitylog=getIntent().getStringExtra("Activity");
+        Log.d("Activity==>",activitylog+"");
+        if(activitylog!=null || !activitylog.equals("")){
+            char[] charArray =activitylog.toCharArray();
+
+            for(int i=0;i<charArray.length;i++){
+                if(Character.isDigit(charArray[i]))
+                menuNumber+=charArray[i];
+            }
+            Log.d("menuNumber==>",menuNumber);
+        }
         settings=getSharedPreferences("setting",MODE_PRIVATE);
         String  accessModel=settings.getString("accessModel","");
         if(accessModel!=null && !accessModel.equals("")){
@@ -126,6 +129,7 @@ public class Dashboard extends BaseActivity {
                  R.id.nav_ro_cylinder_warehouse_mapping)
                 .setDrawerLayout(drawer)
                 .build();
+
 /*        mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_dashboard, R.id.nav_company, R.id.nav_user,R.id.nav_acknowledge,
                 R.id.nav_cylinderproductmapping,R.id.nav_cylinderWarehouseMapping,
@@ -163,6 +167,40 @@ public class Dashboard extends BaseActivity {
                 return false;
             }
         });*/
+
+        if(menuNumber.equals("3")){
+            navController.navigate(R.id.action_dashbord_company);
+        }else if(menuNumber.equals("4")){
+            navController.navigate(R.id.action_dashbord_user);
+        }else if(menuNumber.equals("9")){
+            //menu.findItem(R.id.nav_acknowledge).setVisible(true);
+            navController.navigate(R.id.action_dashbord_acknowledge);
+        }else if(menuNumber.equals("6")){
+            //menu.findItem(R.id.nav_cylinder).setVisible(true);
+            navController.navigate(R.id.action_dashbord_cylinder);
+        }else if(menuNumber.equals("13")){
+            //menu.findItem(R.id.nav_cylinderproductmapping).setVisible(true);
+            navController.navigate(R.id.action_dashbord_cylinderproductmapping);
+        }else if(menuNumber.equals("14")){
+            //menu.findItem(R.id.nav_cylinderWarehouseMapping).setVisible(true);
+            navController.navigate(R.id.action_dashbord_cylinderWarehouseMapping);
+        }else if(menuNumber.equals("12")){
+            //menu.findItem(R.id.nav_purchaseorder).setVisible(true);
+            navController.navigate(R.id.action_dashbord_purchaseorder);
+        }else if(menuNumber.equals("16")){
+            //menu.findItem(R.id.nav_delivery_note).setVisible(true);
+            navController.navigate(R.id.action_dashbord_delivery_note);
+        }else if(menuNumber.equals("16")){
+            //menu.findItem(R.id.nav_sales_order).setVisible(true);
+            navController.navigate(R.id.action_dashbord_sales_order);
+        }else if(menuNumber.equals("18")){
+            //menu.findItem(R.id.nav_return_order).setVisible(true);
+            navController.navigate(R.id.action_dashbord_return_order);
+        }else if(menuNumber.equals("19")){
+            //menu.findItem(R.id.nav_ro_cylinder_warehouse_mapping).setVisible(true);
+            navController.navigate(R.id.action_dashbord_ro_cylinder_warehouse_mapping);
+        }
+        menuNumber="";
     }
 
     private void openQrScan() {
@@ -236,7 +274,6 @@ public class Dashboard extends BaseActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override

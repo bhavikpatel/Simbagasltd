@@ -34,6 +34,7 @@ import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
 import com.track.cylinderdelivery.ui.cylinderproductmapping.AddCylinderProductMappingActivity;
+import com.track.cylinderdelivery.utils.SignatureActivityROCI;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -60,6 +61,8 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
     private int fromwharehouspos=-1;
     private int towarehousepos=-1;
     SharedPreferences spFilledFilter;
+    private String SignImage="";
+    private TextView txtSignaure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
         spFromWarehouse=findViewById(R.id.spFromWarehouse);
         spToWarehouse=findViewById(R.id.spToWarehouse);
         btnSubmit=findViewById(R.id.btnSubmit);
+        txtSignaure=findViewById(R.id.txtSignaure);
         spFilledFilter=context.getSharedPreferences("filledCylFilter",MODE_PRIVATE);
         List<String> imtes=new ArrayList<>();
         imtes.add("Select");
@@ -89,6 +93,14 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
         spFromWarehouse.attachDataSource(imtes);
         spToWarehouse.attachDataSource(imtes);
 
+        txtSignaure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, SignatureActivityROCI.class);
+                intent.putExtra("ROCI",0);
+                startActivityForResult(intent,222);
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +174,8 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
         jsonBody.put("CylinderList",jsonArrayCylList);
         jsonBody.put("CompanyId",Integer.parseInt(setting.getString("CompanyId","1")));
         jsonBody.put("CreatedBy",Integer.parseInt(setting.getString("userId","1")));
+        jsonBody.put("TransferBy",setting.getString("fullName",""));
+        jsonBody.put("SignImage",SignImage);
         Log.d("jsonRequest==>",jsonBody.toString()+"");
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST,url,jsonBody,
                 new Response.Listener<JSONObject>() {
@@ -244,6 +258,14 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }else if(requestCode==222){
+            try{
+                SignImage=data.getStringExtra("imgUrl");
+                txtSignaure.setText(SignImage);
+                //callSubmitSO();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -266,6 +288,12 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
             valid = false;
         } else {
             spFromWarehouse.setError(null);
+        }
+        if(SignImage==null || SignImage.length()==0){
+            txtSignaure.setError("Signature is Required.");
+            valid=false;
+        }else {
+            txtSignaure.setError(null);
         }
         return valid;
     }

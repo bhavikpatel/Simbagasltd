@@ -297,4 +297,6 @@
     <string name="barcode_result" translatable="false">Barcode detected.\n%1$s</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
+    <string name="customer_list">Customer List</string>
+    <string name="clik_here_sig">Click here to capture signature</string>
 </resources>

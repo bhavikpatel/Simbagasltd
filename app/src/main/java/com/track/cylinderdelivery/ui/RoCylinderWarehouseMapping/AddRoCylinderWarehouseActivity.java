@@ -41,6 +41,8 @@ import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.CylinderWarehouseMapping.FilterEmptyCylActivity;
 import com.track.cylinderdelivery.ui.CylinderWarehouseMapping.FilterFilledCylActivity;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
+import com.track.cylinderdelivery.utils.SignatureActivity;
+import com.track.cylinderdelivery.utils.SignatureActivityROCI;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -53,6 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
     Context context;
@@ -69,6 +72,8 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
     private static final int MY_SOCKET_TIMEOUT_MS = 100000;
     SharedPreferences setting;
     private ArrayList<HashMap<String,String>> towhereHouseList;
+    private String SignImage="";
+    private TextView txtSignaure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +95,19 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         spUser=findViewById(R.id.spFromWarehouse);
         spToWarehouse=findViewById(R.id.spToWarehouse);
         btnSubmit=findViewById(R.id.btnSubmit);
+        txtSignaure=findViewById(R.id.txtSignaure);
         spFilledFilter=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
 
         call1GetActiveEmployeeData();
 
+        txtSignaure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, SignatureActivityROCI.class);
+                intent.putExtra("ROCI",0);
+                startActivityForResult(intent,222);
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -248,6 +262,8 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         jsonBody.put("WarehouseId",Integer.parseInt(towhereHouseList.get(towarehousepos-1).get("warehouseId")));
         jsonBody.put("CylinderList",jsonArrayCylList);
         jsonBody.put("CreatedBy",Integer.parseInt(setting.getString("userId","1")));
+        jsonBody.put("TransferBy",setting.getString("fullName",""));
+        jsonBody.put("SignImage",SignImage);
         Log.d("jsonRequest==>",jsonBody.toString()+"");
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST,url,jsonBody,
                 new Response.Listener<JSONObject>() {
@@ -339,6 +355,14 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }else if(requestCode==222){
+            try{
+                SignImage=data.getStringExtra("imgUrl");
+                txtSignaure.setText(SignImage);
+                //callSubmitSO();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -361,6 +385,12 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
             valid = false;
         } else {
             spUser.setError(null);
+        }
+        if(SignImage==null || SignImage.length()==0){
+            txtSignaure.setError("Signature is Required.");
+            valid=false;
+        }else {
+            txtSignaure.setError(null);
         }
         return valid;
     }

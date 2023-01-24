@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -92,6 +93,7 @@ public class UserFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_user, container, false);
         setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.customer_list));
         context=getActivity();
         userTypeList=new ArrayList<>();
         companyList=new ArrayList<>();

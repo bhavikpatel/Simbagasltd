@@ -17,10 +17,12 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +80,8 @@ public class LoginActivity extends BaseActivity {
    // private boolean loggedIN;
    private static final String TAG = "LoginActivity";
     private static final int NOTIFICATION_REQUEST_CODE = 1234;
+    ImageView imgHishopas;
+    Boolean ispassvisible=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class LoginActivity extends BaseActivity {
         btn_login=(Button)findViewById(R.id.btn_login);
         edt_user=(EditText)findViewById(R.id.edt_user_id);
         edt_password=(EditText)findViewById(R.id.edt_password);
+        imgHishopas=findViewById(R.id.imgHishopas);
         txtForgotPass=findViewById(R.id.txtForgotPass);
       //  edt_user.setText("admin@admin.com");
        // edt_password.setText("admin@123");
@@ -107,6 +112,20 @@ public class LoginActivity extends BaseActivity {
 
         logRegToken();
 
+        imgHishopas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ispassvisible){
+                    edt_password.setTransformationMethod(new PasswordTransformationMethod());
+                    ispassvisible=false;
+                    imgHishopas.setImageDrawable(getDrawable(R.drawable.ic_baseline_remove_red_eye_24));
+                }else {
+                    edt_password.setTransformationMethod(null);
+                    ispassvisible=true;
+                    imgHishopas.setImageDrawable(getDrawable(R.drawable.ic_baseline_hide_source_24));
+                }
+            }
+        });
         txtForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +228,7 @@ public class LoginActivity extends BaseActivity {
                         // Log and toast
                         String msg = "FCM Registration token: " + token;
                         Log.d(TAG+"==>", msg);
-                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
         // [END log_reg_token]
@@ -341,6 +360,7 @@ public class LoginActivity extends BaseActivity {
                                 editor.putString("homeView",jsonData.getString("homeView"));
                                 editor.commit();
                                 Intent signupActivity=new Intent(context,Dashboard.class);
+                                signupActivity.putExtra("Activity","");
                                 startActivity(signupActivity);
                                 finish();
                             }else {

@@ -8,12 +8,69 @@
          android:id="@+id/nav_dashboard"
          android:name="com.track.cylinderdelivery.ui.dashboard.DashboardFragment"
          android:label="@string/dashboard"
-         tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashbord_company"
+            app:destination="@+id/nav_company"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_user"
+            app:destination="@+id/nav_user"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_acknowledge"
+            app:destination="@+id/nav_acknowledge"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_cylinder"
+            app:destination="@+id/nav_cylinder"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_cylinderproductmapping"
+            app:destination="@+id/nav_cylinderproductmapping"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_cylinderWarehouseMapping"
+            app:destination="@+id/nav_cylinderWarehouseMapping"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_purchaseorder"
+            app:destination="@+id/nav_nav_purchaseorder"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_delivery_note"
+            app:destination="@+id/nav_nav_delivery_note"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_sales_order"
+            app:destination="@+id/nav_sales_order"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_return_order"
+            app:destination="@+id/nav_return_order"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_dashbord_ro_cylinder_warehouse_mapping"
+            app:destination="@+id/nav_ro_cylinder_warehouse_mapping"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
+    </fragment>
     <fragment
        android:id="@+id/nav_company"
        android:name="com.track.cylinderdelivery.ui.company.CompanyFragment"
        android:label="@string/company"
-       tools:layout="@layout/fragment_company" />
+        tools:layout="@layout/fragment_company">
+    </fragment>
    <fragment
         android:id="@+id/nav_user"
         android:name="com.track.cylinderdelivery.ui.user.UserFragment"
