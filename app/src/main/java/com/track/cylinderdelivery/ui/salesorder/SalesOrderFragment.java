@@ -364,6 +364,8 @@ public class SalesOrderFragment extends Fragment {
                         map.put("isDeletable",jsonArray.getJSONObject(i).getString("isDeletable"));
                         map.put("sodm",jsonArray.getJSONObject(i).getString("sodm")+"");
                         map.put("cylinderHoldingCreditDays",jsonArray.getJSONObject(i).getString("cylinderHoldingCreditDays"));
+                        map.put("driverName",jsonArray.getJSONObject(i).getString("driverName"));
+                        map.put("driverVehicleNo",jsonArray.getJSONObject(i).getString("driverVehicleNo"));
                         salesOrderList.add(map);
                     }
 

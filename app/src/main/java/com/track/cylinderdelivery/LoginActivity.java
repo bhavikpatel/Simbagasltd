@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity {
     private SharedPreferences settings;
     private static final int MY_SOCKET_TIMEOUT_MS = 100000;
    // private boolean loggedIN;
+
    private static final String TAG = "LoginActivity";
     private static final int NOTIFICATION_REQUEST_CODE = 1234;
     ImageView imgHishopas;
@@ -100,15 +101,15 @@ public class LoginActivity extends BaseActivity {
        // loggedIN=settings.getBoolean("loggedIN",false);
 
         // [START handle_data_extras]
-        if (getIntent().getExtras() != null) {
+/*        if (getIntent().getExtras() != null) {
             for (String key : getIntent().getExtras().keySet()) {
                 Object value = getIntent().getExtras().get(key);
                 Log.d(TAG, "Key: " + key + " Value: " + value);
             }
-        }
+        }*/
         // [END handle_data_extras]
 
-        runtimeEnableAutoInit();
+        //runtimeEnableAutoInit();
 
         logRegToken();
 

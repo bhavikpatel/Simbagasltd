@@ -7,11 +7,13 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 public class SplashScreen extends AppCompatActivity {
@@ -27,6 +29,15 @@ public class SplashScreen extends AppCompatActivity {
         context=this;
         settings=getSharedPreferences("setting",MODE_PRIVATE);
         loggedIN=settings.getBoolean("loggedIN",false);
+
+       // runtimeEnableAutoInit();
+       /* if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d("SplashScreen", "Key: " + key + " Value: " + value);
+            }
+        }*/
+
         handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -43,5 +54,11 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         },3000);
+
     }
+   /* public void runtimeEnableAutoInit() {
+        // [START fcm_runtime_enable_auto_init]
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        // [END fcm_runtime_enable_auto_init]
+    }*/
 }

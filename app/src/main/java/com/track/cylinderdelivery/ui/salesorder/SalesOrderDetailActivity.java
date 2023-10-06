@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,8 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
 
     private ImageView btnCancel,btnDelete,btnReport,btnEdit;
     private RelativeLayout rvBlank;
-    private TextView txtSoNumber,txtUserName,txtDNNumber,txtStatus,txtCreatedDate;
+    private TextView txtSoNumber,txtUserName,txtDNNumber,txtStatus,txtCreatedDate,txtDriverName,txtVehicleno;
+    LinearLayout lvDriverName,lvVehicalNo;
     private TextView txtCreatedBy;
     private HashMap<String, String> mapdata;
     private Context context;
@@ -72,6 +74,10 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
         txtStatus=findViewById(R.id.txtStatus);
         txtCreatedBy=findViewById(R.id.txtCreatedBy);
         txtCreatedDate=findViewById(R.id.txtCreatedDate);
+        txtDriverName=findViewById(R.id.txtDriverName);
+        txtVehicleno=findViewById(R.id.txtVehicleno);
+        lvDriverName=findViewById(R.id.lvDriverName);
+        lvVehicalNo=findViewById(R.id.lvVehicalNo);
         alretString="You are sure want to delete Client Delivery Note?";
         spSorting=context.getSharedPreferences("SOFilter",MODE_PRIVATE);
 
@@ -81,6 +87,7 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
         txtStatus.setText(MySingalton.convertString(mapdata.get("status")));
         txtCreatedBy.setText(MySingalton.convertString(mapdata.get("soGeneratedBy")));
         txtCreatedDate.setText(MySingalton.convertString(mapdata.get("strDNDate")));
+
         if(mapdata.get("status").equals("Completed")){
             btnEdit.setVisibility(View.GONE);
 
@@ -90,10 +97,29 @@ public class SalesOrderDetailActivity extends AppCompatActivity {
         }
         if(mapdata.get("isDeletable").equals("true")){
             btnDelete.setVisibility(View.VISIBLE);
+
         }else {
             btnDelete.setVisibility(View.GONE);
-        }
 
+        }
+        txtDriverName.setText(mapdata.get("driverName"));
+        if(mapdata.get("driverName").equals("") || mapdata.get("driverName").equals("null") ||
+                mapdata.get("driverName").equals(null)){
+            txtDriverName.setVisibility(View.GONE);
+            lvDriverName.setVisibility(View.GONE);
+        }else {
+            txtDriverName.setVisibility(View.VISIBLE);
+            lvDriverName.setVisibility(View.VISIBLE);
+        }
+        txtVehicleno.setText(mapdata.get("driverVehicleNo"));
+        if(mapdata.get("driverVehicleNo").equals("") || mapdata.get("driverVehicleNo").equals("null") ||
+                mapdata.get("driverVehicleNo").equals(null)){
+            txtVehicleno.setVisibility(View.GONE);
+            lvVehicalNo.setVisibility(View.GONE);
+        }else {
+            txtVehicleno.setVisibility(View.VISIBLE);
+            lvVehicalNo.setVisibility(View.VISIBLE);
+        }
 
         rvBlank.setOnClickListener(new View.OnClickListener() {
             @Override

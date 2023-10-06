@@ -248,7 +248,11 @@ public class CylinderQRActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        txtCount.setText(qcodeList.size()+"");
+        try {
+            txtCount.setText(qcodeList.size() + "");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         cylinderScanedListAdapter.notifyDataSetChanged();
        // barcodeView.resume();
     }

@@ -172,10 +172,14 @@ public class SignatureActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         progressDialog.dismiss();
-                        Intent intent=new Intent();
-                        intent.putExtra("imgUrl",imgUrl);
-                        setResult(222,intent);
-                        finish();
+                        if(imgUrl!=null && imgUrl.length()!=0) {
+                            Intent intent = new Intent();
+                            intent.putExtra("imgUrl", imgUrl);
+                            setResult(222, intent);
+                            finish();
+                        }else {
+                            MySingalton.showOkDilog(context,"Signatue upload faile! Try again!","Signature Pad");
+                        }
                     }
 
                     @Override
@@ -183,10 +187,11 @@ public class SignatureActivity extends AppCompatActivity {
                         imgUrl="";
                         Log.d("onFailure", "onResponse: " + t.getMessage());
                         progressDialog.dismiss();
-                        Intent intent=new Intent();
+                        MySingalton.showOkDilog(context,"Signatue upload faile! Try again!","Signature Pad");
+                        /*Intent intent=new Intent();
                         intent.putExtra("scanlist","Error");
                         setResult(222,intent);
-                        finish();
+                        finish();*/
                     }
                 });
     }

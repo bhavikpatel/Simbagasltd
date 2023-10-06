@@ -61,7 +61,7 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
     private int fromwharehouspos=-1;
     private int towarehousepos=-1;
     SharedPreferences spFilledFilter;
-    private String SignImage="";
+    String SignImage="";
     private TextView txtSignaure;
 
     @Override
@@ -105,7 +105,10 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validate()){
-                    if(isNetworkConnected()){
+                    Intent intent=new Intent(context, SignatureActivityROCI.class);
+                    intent.putExtra("ROCI",0);
+                    startActivityForResult(intent,222);
+/*                    if(isNetworkConnected()){
                         if(fromwharehouspos!=towarehousepos){
                             try {
                                 callAddCylinderWarehouseMapping();
@@ -118,7 +121,7 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
 
                     }else {
                         Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
-                    }
+                    }*/
                 }
             }
         });
@@ -260,11 +263,26 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
             }
         }else if(requestCode==222){
             try{
+                SignImage="";
                 SignImage=data.getStringExtra("imgUrl");
                 txtSignaure.setText(SignImage);
-                //callSubmitSO();
             }catch (Exception e){
                 e.printStackTrace();
+            }
+            if(isNetworkConnected()){
+                if(fromwharehouspos!=towarehousepos){
+                    try {
+                        if(SignImage.length()!=0) {
+                            callAddCylinderWarehouseMapping();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Toast.makeText(context, "Same Whare house!.", Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -289,12 +307,12 @@ public class AddCylinderWarehouseMapping extends AppCompatActivity {
         } else {
             spFromWarehouse.setError(null);
         }
-        if(SignImage==null || SignImage.length()==0){
+        /*if(SignImage==null || SignImage.length()==0){
             txtSignaure.setError("Signature is Required.");
             valid=false;
         }else {
             txtSignaure.setError(null);
-        }
+        }*/
         return valid;
     }
 }

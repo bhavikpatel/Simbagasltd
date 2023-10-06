@@ -72,7 +72,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
     private static final int MY_SOCKET_TIMEOUT_MS = 100000;
     SharedPreferences setting;
     private ArrayList<HashMap<String,String>> towhereHouseList;
-    private String SignImage="";
+    String SignImage="";
     private TextView txtSignaure;
 
     @Override
@@ -112,7 +112,10 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validate()){
-                    if(isNetworkConnected()){
+                    Intent intent=new Intent(context, SignatureActivityROCI.class);
+                    intent.putExtra("ROCI",0);
+                    startActivityForResult(intent,222);
+               /*     if(isNetworkConnected()){
                             try {
                                 callAddCylinderWarehouseMapping();
                             } catch (JSONException e) {
@@ -121,7 +124,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
 
                     }else {
                         Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
-                    }
+                    }*/
                 }
             }
         });
@@ -357,12 +360,27 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
             }
         }else if(requestCode==222){
             try{
+                SignImage="";
                 SignImage=data.getStringExtra("imgUrl");
                 txtSignaure.setText(SignImage);
-                //callSubmitSO();
             }catch (Exception e){
                 e.printStackTrace();
             }
+                if(isNetworkConnected()){
+                    try {
+                        if(SignImage.length()!=0) {
+                            callAddCylinderWarehouseMapping();
+                        }else{
+                            Toast.makeText(context, "Signature not uploaded!", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }else {
+                    Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
+                }
+
         }
     }
 
@@ -386,12 +404,12 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         } else {
             spUser.setError(null);
         }
-        if(SignImage==null || SignImage.length()==0){
+/*        if(SignImage==null || SignImage.length()==0){
             txtSignaure.setError("Signature is Required.");
             valid=false;
         }else {
             txtSignaure.setError(null);
-        }
+        }*/
         return valid;
     }
     private void callGetWarehouseList1() {

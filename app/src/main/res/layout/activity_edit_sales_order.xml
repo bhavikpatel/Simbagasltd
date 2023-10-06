@@ -64,7 +64,7 @@
         android:layout_below="@+id/lv_underline"
         android:layout_marginTop="2dp"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -176,7 +176,37 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:textSize="@dimen/formEditTextSize" />
+                <TextView
+                    android:id="@+id/txtDriverName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Driver_name"
+                    android:textSize="@dimen/lblForm" />
 
+
+                <EditText
+                    android:id="@+id/edtDriverName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="@dimen/formEditTextSize" />
+
+                <TextView
+                    android:id="@+id/txtDriverVehiclno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/driver_vehicleno"
+                    android:textSize="@dimen/lblForm" />
+
+
+                <EditText
+                    android:id="@+id/edtDriverVehicleno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="@dimen/formEditTextSize" />
                 <TextView
                     android:id="@+id/txtPOGeneratedBy11"
                     android:layout_width="wrap_content"
@@ -247,7 +277,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/lv_underline"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txtClientList"

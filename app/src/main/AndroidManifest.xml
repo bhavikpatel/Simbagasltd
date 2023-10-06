@@ -54,18 +54,22 @@
         <activity
             android:name=".ui.diliverynote.DNFilterActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.salesorder.SOFilterActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.returnorder.ROFilterActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.purchaseorder.PurchaseOrderFilterActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".utils.WebViewActivity"
@@ -100,158 +104,200 @@
         <activity
             android:name=".ui.purchaseorder.PurchaseOrderDetailActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.cylinderproductmapping.DetailCylinderProductMapping"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".utils.SignatureActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".utils.SignatureActivityROCI"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.cylinderproductmapping.SortingCylinderProductMappingActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.returnorder.EditReturnOrderActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.returnorder.ROSortingActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.salesorder.SalesOrderSortingActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.returnorder.AddReturnOrderActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.salesorder.EditSalesOrderActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.salesorder.AddSalesOrderActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.diliverynote.DNCylinderActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.diliverynote.EditDeliveryNoteActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.diliverynote.DeliveryNoteSortingActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.diliverynote.AddDeliveryNoteActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.purchaseorder.EditPurchaseOrderActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.purchaseorder.purchaseOrderSorting"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.purchaseorder.AddPurchaseOrderActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.CylinderWarehouseMapping.FilterEmptyCylActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.CylinderWarehouseMapping.FilterFilledCylActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.CylinderWarehouseMapping.SortEmptyCylMappingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.CylinderWarehouseMapping.SortCylinderMappingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.RoCylinderWarehouseMapping.AddRoCylinderWarehouseActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.CylinderWarehouseMapping.AddCylinderWarehouseMapping"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.cylinderproductmapping.AddCylinderProductMappingActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.cylinder.CylinderListSortingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.cylinder.EditCylinderActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.cylinder.CylinderDetailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.cylinder.CylinderScanListActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.cylinder.CylinderQRActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ScanItemListAcitivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContinuousCaptureActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.user.UserAcknoActivity"
+            android:exported="false"
             android:label="@string/acknowledge"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.acknowledge.ApproveAcknowledgeActivity"
+            android:exported="false"
             android:label="@string/acknowledge"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.acknowledge.AcknowledgeDetailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.company.CompanyListSortingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.company.CompanyDetail"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.company.EditCompany"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.user.UserListSortingActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.user.FilterUserListActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.user.UserDetailActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".ui.user.EditUserActivity"
+            android:exported="false"
             android:label="@string/edit_user"
             android:screenOrientation="portrait" />
 
@@ -262,51 +308,60 @@
         <activity
             android:name=".ui.warehouse.AddWarehouseActivity"
             android:label="@string/add_warehouse"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.product.AddProductActivity"
             android:label="@string/add_product"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.cylinder.AddCylinderActivity"
             android:label="@string/add_company"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.company.AddCompany"
             android:label="@string/add_company"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.user.AddUserActivity"
             android:label="@string/add_user"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
             android:label="@string/title_activity_splash_screen"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Dashboard"
             android:label="@string/title_activity_dashboard"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUp"
+            android:exported="false"
             android:label="@string/Signup"
             android:screenOrientation="portrait" />
 
         <service
             android:name=".MyFirebaseMessagingService"
+            android:directBootAware="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

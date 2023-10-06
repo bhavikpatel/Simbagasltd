@@ -523,7 +523,7 @@ public class DashboardFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
-                            Log.w("FCM==>", "Fetching FCM registration token failed==>", task.getException());
+                           // Log.w("FCM==>", "Fetching FCM registration token failed==>", task.getException());
                             return;
                         }
 
@@ -537,7 +537,7 @@ public class DashboardFragment extends Fragment {
                         if(!token.equals(settings.getString("token",""))) {
                             SetFirebaseToken(token);
                         }else {
-                            Log.d("FCM==>",settings.getString("token",""));
+                           // Log.d("FCM==>",settings.getString("token",""));
                         }
                     }
                 });

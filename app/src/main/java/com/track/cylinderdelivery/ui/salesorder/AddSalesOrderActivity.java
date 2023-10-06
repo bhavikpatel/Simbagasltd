@@ -90,6 +90,8 @@ public class AddSalesOrderActivity extends AppCompatActivity {
     TextView txtPurchasodUnderline;
     TextView txtClientInfo;
     TextView txtLineinfoUnderline;
+    TextView txtDriverName,txtDriverVehiclno;
+    EditText edtDriverName,edtDriverVehicleno;
     private int SOId=0;
     NiceSpinner NSPendingSales;
     private ArrayList<HashMap<String,String>> pendingsalesList;
@@ -115,7 +117,7 @@ public class AddSalesOrderActivity extends AppCompatActivity {
     private EditText edtCylinderHoldingCreditDays;
     private String PODetailId="0";
     private String warehouseId="0";
-    private String SignImage="";
+    String SignImage="";
     private String PhotoImage="";
     private String DeliveryAddress="";
     private EditText edtDiliveryAdd;
@@ -172,6 +174,10 @@ public class AddSalesOrderActivity extends AppCompatActivity {
         btnSignature=findViewById(R.id.btnSignature);
         edtCylinderHoldingCreditDays=findViewById(R.id.edtCylinderHoldingCreditDays);
         sODetailList=new ArrayList<>();
+        txtDriverName=findViewById(R.id.txtDriverName);
+        txtDriverVehiclno=findViewById(R.id.txtDriverVehiclno);
+        edtDriverName=findViewById(R.id.edtDriverName);
+        edtDriverVehicleno=findViewById(R.id.edtDriverVehicleno);
 
         Date c = Calendar.getInstance().getTime();
         Log.d("soDate==>",c+"");
@@ -407,6 +413,11 @@ public class AddSalesOrderActivity extends AppCompatActivity {
                 hideSoftKeyboard(view);
                 delnotepos=position;
                 if(position!=0) {
+                    txtDriverName.setVisibility(View.GONE);
+                    txtDriverVehiclno.setVisibility(View.GONE);
+                    edtDriverName.setVisibility(View.GONE);
+                    edtDriverVehicleno.setVisibility(View.GONE);
+
                      if(deliveryList.get(position-1).get("dnNumber").equals(null) ||
                             deliveryList.get(position-1).get("dnNumber").equals("null") ||
                             deliveryList.get(position-1).get("dnNumber").length()==0){
@@ -431,6 +442,10 @@ public class AddSalesOrderActivity extends AppCompatActivity {
                         Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
                     }
                 }else {
+                    txtDriverName.setVisibility(View.VISIBLE);
+                    txtDriverVehiclno.setVisibility(View.VISIBLE);
+                    edtDriverName.setVisibility(View.VISIBLE);
+                    edtDriverVehicleno.setVisibility(View.VISIBLE);
                     dnId="0";
                     List<String> imtes=new ArrayList<>();
                     imtes.add("Select");
@@ -765,11 +780,12 @@ public class AddSalesOrderActivity extends AppCompatActivity {
             }
         }else if(requestCode==222){
             try{
+                SignImage="";
                 SignImage=data.getStringExtra("imgUrl");
-                callSubmitSO();
             }catch (Exception e){
                 e.printStackTrace();
             }
+            callSubmitSO();
         }
     }
 
@@ -845,6 +861,8 @@ public class AddSalesOrderActivity extends AppCompatActivity {
         jsonBody.put("CreatedBy",Integer.parseInt(settings.getString("userId","0")));
         jsonBody.put("CylinderHoldingCreditDays",CylinderHoldingCreditDays);
         jsonBody.put("DeliveryAddress",DeliveryAddress);
+        jsonBody.put("DriverName",edtDriverName.getText().toString()+"");
+        jsonBody.put("DriverVehicleNo",edtDriverVehicleno.getText().toString()+"");
 
         Log.d("jsonRequest==>",jsonBody.toString()+"");
 

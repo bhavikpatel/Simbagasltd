@@ -116,11 +116,13 @@ public class EditSalesOrderActivity extends AppCompatActivity {
     private int CylinderHoldingCreditDays=0;
     private int SOId;
     private String PODetailId="0";
-    private String SignImage="";
+    String SignImage="";
     private String PhotoImage="";
     private String DeliveryAddress="";
     private EditText edtDiliveryAdd;
     private String cylinderList="";
+    TextView txtDriverName,txtDriverVehiclno;
+    EditText edtDriverName,edtDriverVehicleno;
 
 
     @Override
@@ -139,8 +141,8 @@ public class EditSalesOrderActivity extends AppCompatActivity {
         edtSoNumber=findViewById(R.id.edtSoNumber);
         edtSoNumber.setText(mapdata.get("soNumber"));
 
-        edtSoDate=findViewById(R.id.edtSoDate);
 
+        edtSoDate=findViewById(R.id.edtSoDate);
 
         String dtStart = mapdata.get("strDNDate");
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -158,6 +160,12 @@ public class EditSalesOrderActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        txtDriverName=findViewById(R.id.txtDriverName);
+        txtDriverVehiclno=findViewById(R.id.txtDriverVehiclno);
+        edtDriverName=findViewById(R.id.edtDriverName);
+        edtDriverVehicleno=findViewById(R.id.edtDriverVehicleno);
+        edtDriverName.setText(mapdata.get("driverName"));
+        edtDriverVehicleno.setText(mapdata.get("driverVehicleNo"));
         NsDeliveyNote=findViewById(R.id.NSUserName);
         NSClient=findViewById(R.id.NSClient);
         NSWarehouse=findViewById(R.id.NSWarehouse);
@@ -190,7 +198,12 @@ public class EditSalesOrderActivity extends AppCompatActivity {
         btnSignature=findViewById(R.id.btnSignature);
         edtCylinderHoldingCreditDays=findViewById(R.id.edtCylinderHoldingCreditDays);
         edtDiliveryAdd=findViewById(R.id.edtDiliveryAdd);
-        edtDiliveryAdd.setText(mapdata.get("deliveryAddress"));
+        if(mapdata.get("deliveryAddress").equals("") || mapdata.get("deliveryAddress").equals("null") ||
+                mapdata.get("deliveryAddress").equals(null)){
+            edtDiliveryAdd.setText(mapdata.get(""));
+        }else {
+            edtDiliveryAdd.setText(mapdata.get("deliveryAddress"));
+        }
         edtCylinderHoldingCreditDays.setText(MySingalton.convertString(mapdata.get("cylinderHoldingCreditDays")));
         dnId=mapdata.get("dnId");
         if(isNetworkConnected()) {
@@ -416,6 +429,12 @@ public class EditSalesOrderActivity extends AppCompatActivity {
                 hideSoftKeyboard(view);
                 delnotepos=position;
                 if(position!=0) {
+                    txtDriverName.setVisibility(View.GONE);
+                    txtDriverVehiclno.setVisibility(View.GONE);
+                    edtDriverName.setVisibility(View.GONE);
+                    edtDriverVehicleno.setVisibility(View.GONE);
+                    edtDriverName.setText("");
+                    edtDriverVehicleno.setText("");
                     if(deliveryList.get(position-1).get("dnNumber").equals(null) ||
                             deliveryList.get(position-1).get("dnNumber").equals("null") ||
                             deliveryList.get(position-1).get("dnNumber").length()==0){
@@ -440,6 +459,10 @@ public class EditSalesOrderActivity extends AppCompatActivity {
                         Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
                     }
                 }else {
+                    txtDriverName.setVisibility(View.VISIBLE);
+                    txtDriverVehiclno.setVisibility(View.VISIBLE);
+                    edtDriverName.setVisibility(View.VISIBLE);
+                    edtDriverVehicleno.setVisibility(View.VISIBLE);
                     List<String> imtes=new ArrayList<>();
                     imtes.add("Select");
                     NSClient.attachDataSource(imtes);
@@ -531,7 +554,8 @@ public class EditSalesOrderActivity extends AppCompatActivity {
             jsonBody.put("WarehouseId",Integer.parseInt(warehouseId));
         }
         jsonBody.put("CylinderHoldingCreditDays",CylinderHoldingCreditDays);
-        jsonBody.put("DeliveryAddress",DeliveryAddress);
+        jsonBody.put("DriverName",edtDriverName.getText().toString()+"");
+        jsonBody.put("DriverVehicleNo",edtDriverVehicleno.getText().toString()+"");
 
         Log.d("jsonRequest==>",jsonBody.toString()+"");
 
@@ -1236,6 +1260,12 @@ public class EditSalesOrderActivity extends AppCompatActivity {
                         NsDeliveyNote.attachDataSource(imtes);
                         NsDeliveyNote.setSelectedIndex(delnotepos);
                         if(delnotepos!=0){
+                            txtDriverName.setVisibility(View.GONE);
+                            txtDriverVehiclno.setVisibility(View.GONE);
+                            edtDriverName.setVisibility(View.GONE);
+                            edtDriverVehicleno.setVisibility(View.GONE);
+                            edtDriverName.setText("");
+                            edtDriverVehicleno.setText("");
                             dnNumber=deliveryList.get(delnotepos-1).get("dnNumber");
                             dnId=deliveryList.get(delnotepos-1).get("dnId");
                             if(isNetworkConnected()){
@@ -1246,6 +1276,10 @@ public class EditSalesOrderActivity extends AppCompatActivity {
                                 Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
                             }
                         }else{
+                            txtDriverName.setVisibility(View.VISIBLE);
+                            txtDriverVehiclno.setVisibility(View.VISIBLE);
+                            edtDriverName.setVisibility(View.VISIBLE);
+                            edtDriverVehicleno.setVisibility(View.VISIBLE);
                             if(isNetworkConnected()){
                                 callgetDeliveryNoteCustomerList("");
                             }else {
@@ -1326,6 +1360,7 @@ public class EditSalesOrderActivity extends AppCompatActivity {
             }
         }else if(requestCode==222){
             try{
+                SignImage="";
                 SignImage=data.getStringExtra("imgUrl");
             }catch (Exception e){
                 e.printStackTrace();

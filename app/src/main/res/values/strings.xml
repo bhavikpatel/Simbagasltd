@@ -249,7 +249,8 @@
     <string name="name_of_company1">Name Of Company</string>
     <string name="company_category">Company Category</string>
     <string name="qty_of_gas">Qty of Gas:</string>
-    <string name="driver_vehicleno">Driver VehicleNo:</string>
+    <string name="driver_vehicleno">Driver Vehicle No:</string>
+    <string name="driver_vehicleno1">Driver Vehicle No</string>
     <string name="driver_vehicle_no_">Driver Vehicle No:</string>
     <string name="agreement">aggreement</string>
     <string name="save_signature">Submit</string>
@@ -299,4 +300,6 @@
     <string name="fcm_message">FCM Message</string>
     <string name="customer_list">Customer List</string>
     <string name="clik_here_sig">Click here to capture signature</string>
+    <string name="Driver_name">Driver Name:</string>
+    <string name="Driver_name1">Driver Name</string>
 </resources>
