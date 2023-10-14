@@ -129,10 +129,10 @@ public class SignatureActivityROCI extends AppCompatActivity {
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
         MarketPlaceApiInterfaceROCI apiService = Apiclient.getClientCWMI().create(MarketPlaceApiInterfaceROCI.class);
-        File file = new File(getCacheDir().getPath() +"sigimg"+ROCI+".jpg");
+        File file = new File(getCacheDir().getPath() +"sigimg"+ROCI+".png");
         try {
             OutputStream fOut = new FileOutputStream(file);
-            signatureBitmap.compress(Bitmap.CompressFormat.JPEG,100,fOut);
+            signatureBitmap.compress(Bitmap.CompressFormat.PNG,100,fOut);
             fOut.flush();
             fOut.close();
         } catch (IOException e) {
