@@ -31,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Dashboard extends BaseActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     private Context context;
     private NavigationView navigationView;
