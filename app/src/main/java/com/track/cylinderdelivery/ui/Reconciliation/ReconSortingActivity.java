@@ -33,7 +33,7 @@ public class ReconSortingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_r_o_sorting);
+        setContentView(R.layout.activity_recon_sorting);
         context=this;
         rvBlank=(RelativeLayout)findViewById(R.id.rvBlank);
         btnCancel=(Button)findViewById(R.id.btnCancel);
