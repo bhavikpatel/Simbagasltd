@@ -28,6 +28,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.Reconciliation.ReconSortingActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent" />
+        <activity
+            android:name=".ui.Reconciliation.ReconFilterActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent" />
+        <activity
+            android:name=".ui.Reconciliation.ReconciliationDetialActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent"/>
+        <activity
             android:name=".ui.returnorder.ReturnOrderDetialActivity"
             android:exported="false"
             android:screenOrientation="portrait"

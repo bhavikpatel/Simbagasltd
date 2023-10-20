@@ -64,6 +64,11 @@
             app:destination="@+id/nav_ro_cylinder_warehouse_mapping"
             app:popUpTo="@+id/nav_dashboard"
             app:popUpToInclusive="false"></action>
+        <action
+            android:id="@+id/action_reconciliation"
+            app:destination="@+id/nav_reconciliatoin"
+            app:popUpTo="@+id/nav_dashboard"
+            app:popUpToInclusive="false"></action>
     </fragment>
     <fragment
        android:id="@+id/nav_company"
@@ -141,4 +146,9 @@
         android:name="com.track.cylinderdelivery.ui.RoCylinderWarehouseMapping.RoCylinderWarehouseFragment"
         android:label="@string/ROCylinderWarehouseMapping"
         tools:layout="@layout/fragment_cylinder_warehouse_mapping" />
+    <fragment
+        android:id="@+id/nav_reconciliatoin"
+        android:name="com.track.cylinderdelivery.ui.Reconciliation.ReconciliationFragment"
+        android:label="@string/reconciliation"
+        tools:layout="@layout/fragment_return_order" />
 </navigation>

@@ -52,7 +52,7 @@ public class Dashboard extends BaseActivity {
 
             for(int i=0;i<charArray.length;i++){
                 if(Character.isDigit(charArray[i]))
-                menuNumber+=charArray[i];
+                    menuNumber+=charArray[i];
             }
             Log.d("menuNumber==>",menuNumber);
         }
@@ -125,7 +125,7 @@ public class Dashboard extends BaseActivity {
                 R.id.nav_product,R.id.nav_warehouse,R.id.nav_acknowledge,R.id.nav_purchaseorder,
                  R.id.nav_cylinderproductmapping,R.id.nav_report,R.id.nav_cylinderWarehouseMapping,
                  R.id.nav_permssion,R.id.nav_delivery_note,R.id.nav_sales_order,R.id.nav_return_order,
-                 R.id.nav_ro_cylinder_warehouse_mapping)
+                 R.id.nav_ro_cylinder_warehouse_mapping,R.id.nav_reconciliatoin)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -198,6 +198,9 @@ public class Dashboard extends BaseActivity {
         }else if(menuNumber.equals("19")){
             //menu.findItem(R.id.nav_ro_cylinder_warehouse_mapping).setVisible(true);
             navController.navigate(R.id.action_dashbord_ro_cylinder_warehouse_mapping);
+        }else if(menuNumber.equals("32")){
+            //menu.findItem(R.id.nav_ro_cylinder_warehouse_mapping).setVisible(true);
+            navController.navigate(R.id.action_reconciliation);
         }
         menuNumber="";
     }
@@ -230,6 +233,7 @@ public class Dashboard extends BaseActivity {
         menu.findItem(R.id.nav_sales_order).setVisible(false);
         menu.findItem(R.id.nav_return_order).setVisible(false);
         menu.findItem(R.id.nav_ro_cylinder_warehouse_mapping).setVisible(false);
+        menu.findItem(R.id.nav_reconciliatoin).setVisible(false);
         for(int i=0;i<accessMOdelarray.length();i++){
             try {
                 JSONObject obj=accessMOdelarray.getJSONObject(i);
@@ -268,6 +272,9 @@ public class Dashboard extends BaseActivity {
                 }
                 if(obj.get("id").equals("19")){
                     menu.findItem(R.id.nav_ro_cylinder_warehouse_mapping).setVisible(true);
+                }
+                if(obj.get("id").equals("32")){
+                    menu.findItem(R.id.nav_reconciliatoin).setVisible(true);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
