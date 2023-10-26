@@ -304,4 +304,8 @@
     <string name="Driver_name">Driver Name:</string>
     <string name="Driver_name1">Driver Name</string>
     <string name="reconciliation">Reconciliation</string>
+    <string name="ReconciliationNumber">Reconciliation Number:</string>
+    <string name="reconciliation_date">Reconciliation Date:</string>
+    <string name="company1">Company1:</string>
+    <string name="company2">Company2</string>
 </resources>

@@ -100,7 +100,7 @@ public class ReconciliationFragment extends Fragment {
         lvSortingParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, ROSortingActivity.class);
+                Intent intent=new Intent(context, ReconSortingActivity.class);
                 startActivity(intent);
             }
         });
@@ -228,7 +228,7 @@ public class ReconciliationFragment extends Fragment {
         Log.d("Api Calling==>","Api Calling");
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
-        String url = MySingalton.getInstance().URL+"/Api/MobReturnOrder/GetRONo?CompanyId="+Integer.parseInt(settings.getString("companyId","1"));
+        String url = MySingalton.getInstance().URL+"/Api/MobReconciliation/GetRECNo?CompanyId="+Integer.parseInt(settings.getString("companyId","1"));
         Log.d("request==>",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,new Response.Listener<String>() {
@@ -240,8 +240,8 @@ public class ReconciliationFragment extends Fragment {
                 try {
                     j = new JSONObject(Response);
                     if(j.getBoolean("status")){
-                        String PONumber=j.getString("message");
-                        Intent intent=new Intent(getActivity(), AddReturnOrderActivity.class);
+                        String PONumber=j.getString("data");
+                        Intent intent=new Intent(getActivity(), AddReconciliationActivity.class);
                         intent.putExtra("RONumber",PONumber);
                         startActivity(intent);
                     }else {

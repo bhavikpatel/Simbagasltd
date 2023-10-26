@@ -37,7 +37,7 @@ public class ReconFilterActivity extends AppCompatActivity {
         rvBlank=findViewById(R.id.rvBlank);
         btnCancel=findViewById(R.id.btnCancel);
         btnApply=findViewById(R.id.btnApply);
-        spPurchaseOrderFilter=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
+        spPurchaseOrderFilter=context.getSharedPreferences("ReconFilter",MODE_PRIVATE);
         spinnerCompany = (NiceSpinner) findViewById(R.id.spinnerCompany);
         companyDataSet = new LinkedList<>();
         companyDataSet.add("ALL");
