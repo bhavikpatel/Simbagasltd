@@ -94,7 +94,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
     TextView txtPurchaseOrderDetail;
 
     private int ROId=0;
-    NiceSpinner NSPendingSales;
+    //NiceSpinner NSPendingSales;
     ImageView btnScanCylinders;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     TextView txtCylinderNos;
@@ -103,7 +103,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
     List<String> imtes;
     private String CylinderStatus;
     private Button btnAdd,btnLastSubmit,btnSaveAsDraft;
-    private EditText edtRemark;
+   // private EditText edtRemark;
     private String Remark;
     private int totalRecord;
     private ArrayList<HashMap<String,String>> sODetailList;
@@ -158,14 +158,14 @@ public class AddReconciliationActivity extends AppCompatActivity {
         txtPurchasodUnderline.setBackgroundColor(getResources().getColor(R.color.lightGrey));
         txtClientInfo=findViewById(R.id.txtClientInfo);
         txtPurchaseOrderDetail=findViewById(R.id.txtPurchaseOrderDetail);
-        NSPendingSales=(NiceSpinner)findViewById(R.id.NSPendingSales);
+       // NSPendingSales=(NiceSpinner)findViewById(R.id.NSPendingSales);
         btnScanCylinders=findViewById(R.id.btnScanCylinders);
         btnSaveAndContinue=findViewById(R.id.btnSaveAndContinue);
         txtCylinderNos=findViewById(R.id.txtCylinderNos);
         qrcodeList=new ArrayList<String>();
         imtes=new ArrayList<>();
         btnAdd=findViewById(R.id.btnAdd);
-        edtRemark=findViewById(R.id.edtRemark);
+       // edtRemark=findViewById(R.id.edtRemark);
         btnLastSubmit=findViewById(R.id.btnLastSubmit);
         btnSaveAsDraft=findViewById(R.id.btnSaveAsDraft);
         sODetailList=new ArrayList<>();
@@ -204,7 +204,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Remark=edtRemark.getText().toString().trim();
+                //Remark=edtRemark.getText().toString().trim();
                 if(validate1()){
                     if(isNetworkConnected()){
                         try {
@@ -218,7 +218,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                 }
             }
         });
-        NSPendingSales.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+/*        NSPendingSales.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 NSPendingSales.setError(null);
@@ -239,7 +239,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hideSoftKeyboard(v);
             }
-        });
+        });*/
         btnScanCylinders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -620,14 +620,14 @@ public class AddReconciliationActivity extends AppCompatActivity {
         /*}else {
             progressBar.setVisibility(View.VISIBLE);
         }*/
-        String url = MySingalton.getInstance().URL+"/Api/MobReturnOrder/AddEditRODetail";
+        String url = MySingalton.getInstance().URL+"/Api/MobReconciliation/AddEditRECDetail";
         Log.d("url==>",url);
         final JSONObject jsonBody=new JSONObject();
-        jsonBody.put("ROId",ROId);
+        jsonBody.put("ReconciliationId",ROId);
         JSONArray jsonArrayCylList=new JSONArray(qrcodeList);
-        jsonBody.put("CylinderList",jsonArrayCylList);
-        jsonBody.put("CylinderStatus",CylinderStatus);
-        jsonBody.put("Remark",Remark);
+        jsonBody.put("CylinderNoList",jsonArrayCylList);
+/*        jsonBody.put("CylinderStatus",CylinderStatus);
+        jsonBody.put("Remark",Remark);*/
         jsonBody.put("CreatedBy",Integer.parseInt(settings.getString("userId","1")));
         Log.d("jsonRequest==>",jsonBody.toString()+"");
 
@@ -776,12 +776,12 @@ public class AddReconciliationActivity extends AppCompatActivity {
         } else {
             txtCylinderNos.setError(null);
         }*/
-        if (pendingsalespos<=0) {
+/*        if (pendingsalespos<=0) {
             NSPendingSales.setError("Field is Required.");
             valid = false;
         } else {
             NSPendingSales.setError(null);
-        }
+        }*/
 
 /*        if(Remark.length()==0){
             edtRemark.setError("Field is Required.");
@@ -820,7 +820,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
         jsonBody.put("CompanyId",Integer.parseInt(comp_value));
         jsonBody.put("UserId",Integer.parseInt(comp_client_value));
         jsonBody.put("WarehouseId",Integer.parseInt(warehouse_value+""));
-        jsonBody.put("ReconciliationDate",edtSoDate.getText().toString()+"");
+        jsonBody.put("ReconciliationDate",roDate+"");
         jsonBody.put("GeneratedBy",edtSOGeneratedBy.getText().toString());
         jsonBody.put("CreatedBy",Integer.parseInt(settings.getString("userId","1")));
 
@@ -846,11 +846,11 @@ public class AddReconciliationActivity extends AppCompatActivity {
                                 if(isNetworkConnected()){
                                   //  callROCylinderStatusList();
 
-                                    imtes.add("Select");
+/*                                    imtes.add("Select");
                                     imtes.add("Empty");
                                     imtes.add("Damage");
                                     imtes.add("Missing");
-                                    NSPendingSales.attachDataSource(imtes);
+                                    NSPendingSales.attachDataSource(imtes);*/
 
 
                                 }else {
