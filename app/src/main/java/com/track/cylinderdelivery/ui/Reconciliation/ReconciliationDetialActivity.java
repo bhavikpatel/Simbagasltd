@@ -71,12 +71,12 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
         btnReport=findViewById(R.id.btnReport);
         btnDelete=findViewById(R.id.btnDelete);
 
-/*        if(mapdata.get("isDeletable").equals("ture") || Boolean.parseBoolean(mapdata.get("isDeletable"))){
+        if(mapdata.get("isDeletable").equals("ture") || Boolean.parseBoolean(mapdata.get("isDeletable"))){
             btnDelete.setVisibility(View.VISIBLE);
-        }else {*/
+        }else {
             btnDelete.setVisibility(View.GONE);
-      // }
-        if(mapdata.get("status").equals("Draft")){
+       }
+        if(mapdata.get("isEditable").equals("isEditable") || Boolean.parseBoolean(mapdata.get("isEditable"))){
             btnEdit.setVisibility(View.VISIBLE);
         }else {
             btnEdit.setVisibility(View.GONE);
@@ -155,7 +155,7 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
             Log.d("Api Calling==>","Api Calling");
             final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
             progressDialog.show();
-            String url = MySingalton.getInstance().URL+"/Api/MobReturnOrder/DeleteRO?SOId="+mapdata.get("roId")+
+            String url = MySingalton.getInstance().URL+"/Api/MobReconciliation/DeleteREC?RECId="+mapdata.get("reconciliationId")+
                     "&UserId="+settings.getString("userId","1")+"&CompanyId="+settings.getString("companyId","1")+
                     "&UserType="+settings.getString("userType","Admin");
             Log.d("request==>",url);
@@ -183,6 +183,7 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
                         editor.putBoolean("refilter",true);
                         editor.putString("text1","");
                         editor.putString("text2","Decinding");
+                        editor.apply();
                         editor.commit();
                         finish();
                     } catch (JSONException e) {

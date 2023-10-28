@@ -185,6 +185,7 @@ public class ReconciliationFragment extends Fragment {
         if(spSorting.getBoolean("refilter",false)){
             SharedPreferences.Editor userFilterEditor = spSorting.edit();
             userFilterEditor.putBoolean("refilter",false);
+            userFilterEditor.apply();
             userFilterEditor.commit();
             SortBy=spSorting.getString("text1","");
             if(spSorting.getString("text2","Decinding").equals("Decinding")){
@@ -354,6 +355,9 @@ public class ReconciliationFragment extends Fragment {
                         map.put("username",jsonArray.getJSONObject(i).getString("username")+"");
                         map.put("strReconciliationDate",jsonArray.getJSONObject(i).getString("strReconciliationDate")+"");
                         map.put("warehouseName",jsonArray.getJSONObject(i).getString("warehouseName")+"");
+                        map.put("isDeletable",jsonArray.getJSONObject(i).getString("isDeletable"));
+                        map.put("isEditable",jsonArray.getJSONObject(i).getString("isEditable"));
+                        map.put("companyName",jsonArray.getJSONObject(i).getString("companyName"));
 
                         RecList.add(map);
                     }

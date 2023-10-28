@@ -97,9 +97,9 @@ public class ReconciliationListAdapter extends RecyclerView.Adapter<Reconciliati
         holder.imgArrow.setTag(position);
         holder.rvBackground.setTag(position);
         holder.txtPonumber.setText(podetailList.get(position).get("reconciliationNumber"));
-        holder.txtUserName.setText("User name: "+podetailList.get(position).get("username")+"\n"+
-                "Warehouse Name: "+podetailList.get(position).get("warehouseName")+"\n"+
-                "Created on: "+podetailList.get(position).get("strReconciliationDate"));
+        holder.txtUserName.setText("Company: "+podetailList.get(position).get("companyName")+"\n"+
+                "Customer: "+podetailList.get(position).get("username")+"\n"+
+                "Created by: "+podetailList.get(position).get("generatedBy"));
         holder.txtStatus.setText(podetailList.get(position).get("status"));
     /*    if(podetailList.get(position).get("status").equals("Pending")){
            // holder.imgArrow.setImageResource(R.drawable.ic_baseline_pending_24);

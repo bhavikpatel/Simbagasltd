@@ -111,7 +111,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     //EditText edtVehicleno;
     String SignImage="",PhotoImage="";
-    private String warehouse_value="";
+    private String warehouse_value="0";
     private String warehouse_text="";
     HashMap<String, String> mapdata;
     @Override
@@ -304,7 +304,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
                 if(position!=0) {
 
                     for(int i=0;i<activeCompanyList.size();i++){
-                        if(NSCompany1.getSelectedItem().equals(activeCompanyList.get(i).get("text"))){
+                        if(NSCompany1.getSelectedItem().toString().equals(activeCompanyList.get(i).get("text"))){
                             comp_value=activeCompanyList.get(i).get("value");
                             comp_text=activeCompanyList.get(i).get("text");
                             callGetCompanyClientDataApi(comp_value);
@@ -377,7 +377,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
                         }
                     }
                 }else {
-                    warehouse_value="";
+                    warehouse_value="0";
                     warehouse_text="";
                 }
             }
@@ -419,6 +419,16 @@ public class EditReconciliationActivity extends AppCompatActivity {
                             wareHouseDataList.add(map);
                         }
                         NSWarehouse.attachDataSource(imtes);
+                        if(mapdata.get("warehouseName").toString().length()!=0) {
+                            for (int i = 0; i < wareHouseDataList.size(); i++) {
+                                if (wareHouseDataList.get(i).get("name").toString().equals(mapdata.get("warehouseName"))) {
+                                    NSWarehouse.setSelectedIndex(i + 1);
+                                    warehouse_value=mapdata.get("warehouseId");
+                                    warehouse_text=mapdata.get("username");
+                                    break;
+                                }
+                            }
+                        }
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
@@ -495,6 +505,16 @@ public class EditReconciliationActivity extends AppCompatActivity {
                             companyClientDataList.add(map);
                         }
                         NSCompany2.attachDataSource(imtes);
+                        if(mapdata.get("username").toString().length()!=0) {
+                            for (int i = 0; i < companyClientDataList.size(); i++) {
+                                if (companyClientDataList.get(i).get("fullName").toString().equals(mapdata.get("username"))) {
+                                    NSCompany2.setSelectedIndex(i + 1);
+                                    comp_client_value=mapdata.get("userId");
+                                    comp_client_text=mapdata.get("username");
+                                    break;
+                                }
+                            }
+                        }
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
@@ -1006,6 +1026,17 @@ public class EditReconciliationActivity extends AppCompatActivity {
                             activeCompanyList.add(map);
                         }
                         NSCompany1.attachDataSource(imtes);
+                        for(int i=0;i<activeCompanyList.size();i++){
+                            if(activeCompanyList.get(i).get("text").toString().equals(mapdata.get("companyName"))){
+                                NSCompany1.setSelectedIndex(i+1);
+                                comp_value=mapdata.get("companyId");
+                                comp_text=mapdata.get("companyName");
+                                callGetCompanyClientDataApi(comp_value);
+                                callGetActiveWarehouseList(comp_value);
+                                activeCompanyPosition=i+1;
+                                break;
+                            }
+                        }
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }

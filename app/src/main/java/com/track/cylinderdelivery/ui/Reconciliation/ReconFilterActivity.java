@@ -41,6 +41,7 @@ public class ReconFilterActivity extends AppCompatActivity {
         spinnerCompany = (NiceSpinner) findViewById(R.id.spinnerCompany);
         companyDataSet = new LinkedList<>();
         companyDataSet.add("ALL");
+        companyDataSet.add("Draft");
         companyDataSet.add("Reconcilate");
         companyDataSet.add("NotReconcilate");
         //companyDataSet.add("Completed");
