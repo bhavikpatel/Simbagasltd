@@ -126,7 +126,7 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context, EditReturnOrderActivity.class);
+                Intent intent=new Intent(context, EditReconciliationActivity.class);
                 intent.putExtra("editData",mapdata);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);

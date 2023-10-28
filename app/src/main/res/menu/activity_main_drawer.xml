@@ -73,7 +73,7 @@
             android:title="@string/ROCylinderWarehouseMapping" />
         <item
             android:id="@+id/nav_reconciliatoin"
-            android:icon="@drawable/ic_baseline_reply_24"
+            android:icon="@drawable/baseline_assignment_24"
             android:title="@string/reconciliation" />
     </group>
         <!--<item android:title="Communicate">

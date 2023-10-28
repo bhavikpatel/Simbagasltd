@@ -682,7 +682,7 @@ public class EditReturnOrderActivity extends AppCompatActivity {
                         map.put("cylinderStatus",dataobj.getString("cylinderStatus"));
                         map.put("remark",dataobj.getString("remark"));
                         if(!dataobj.getString("remark").equals("null"))
-                        edtRemark.setText(dataobj.getString("remark"));
+                            edtRemark.setText(dataobj.getString("remark"));
                         map.put("cylinderNo",dataobj.getString("cylinderNo"));
                         map.put("createdBy",dataobj.getString("createdBy"));
 

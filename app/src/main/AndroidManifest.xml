@@ -167,6 +167,11 @@
             android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
+            android:name=".ui.Reconciliation.EditReconciliationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
             android:name=".ui.salesorder.EditSalesOrderActivity"
             android:screenOrientation="portrait"
             android:exported="false"

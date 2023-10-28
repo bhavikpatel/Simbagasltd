@@ -45,7 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
-import com.track.cylinderdelivery.ui.returnorder.RODetailListAdapter;
+import com.track.cylinderdelivery.ui.returnorder.EditRODetailListAdapter;
 import com.track.cylinderdelivery.utils.SignatureActivity;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
@@ -64,10 +64,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class AddReconciliationActivity extends AppCompatActivity {
+public class EditReconciliationActivity extends AppCompatActivity {
 
     private String REconNumber;
-    private AddReconciliationActivity context;
+    private EditReconciliationActivity context;
     private EditText edtRoNumber,edtSoDate,edtSOGeneratedBy;
     private String roDate;
     private NiceSpinner NSCompany1,NSCompany2,NSWarehouse;
@@ -107,25 +107,26 @@ public class AddReconciliationActivity extends AppCompatActivity {
     private String Remark;
     private int totalRecord;
     private ArrayList<HashMap<String,String>> sODetailList;
-    private REconDetailListAdapter sODetailListAdapter;
+    private EditREconDetailListAdapter sODetailListAdapter;
     RecyclerView recyclerView;
     //EditText edtVehicleno;
     String SignImage="",PhotoImage="";
     private String warehouse_value="";
     private String warehouse_text="";
-
+    HashMap<String, String> mapdata;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reconcilation_order);
-        REconNumber= getIntent().getStringExtra("RONumber");
+        setContentView(R.layout.activity_edit_reconcilation_order);
+        mapdata= (HashMap<String, String>) getIntent().getSerializableExtra("editData");
+        REconNumber= mapdata.get("reconciliationNumber");
         context=this;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Drawable upArrow =  ContextCompat.getDrawable(context, R.drawable.abc_ic_ab_back_material);
         upArrow.setColorFilter(ContextCompat.getColor(context, R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
-        getSupportActionBar().setTitle("Add Reconciliation");
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#734CEA'>Add Reconciliation</font>"));
+        getSupportActionBar().setTitle("Edit Reconciliation");
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#734CEA'>Edit Reconciliation</font>"));
         edtRoNumber=findViewById(R.id.edtRoNumber);
         edtRoNumber.setText(REconNumber);
         recyclerView=findViewById(R.id.recyclerView);
@@ -145,6 +146,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
         NSCompany2=findViewById(R.id.NSCompany2);
         NSWarehouse=findViewById(R.id.NSWarehouse);
         edtSOGeneratedBy=findViewById(R.id.edtPOGeneratedBy);
+        edtSOGeneratedBy.setText(mapdata.get("generatedBy"));
         edtSOGeneratedBy.setText(settings.getString("fullName",""));
         spSorting=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
         btnCancel=findViewById(R.id.btnCancel);
@@ -246,7 +248,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(context,
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AddReconciliationActivity.this,
+                    ActivityCompat.requestPermissions(EditReconciliationActivity.this,
                             new String[]{Manifest.permission.CAMERA},
                             MY_PERMISSIONS_REQUEST_CAMERA);
                 }else {
@@ -666,7 +668,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                                     sODetailList.add(map);
                                 }
 
-                                sODetailListAdapter=new REconDetailListAdapter(sODetailList,context);
+                                sODetailListAdapter=new EditREconDetailListAdapter(sODetailList,context);
                                 recyclerView.setAdapter(sODetailListAdapter);
 
 /*                                if(podetailList.size()>=totalRecord){
@@ -852,7 +854,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                                     imtes.add("Damage");
                                     imtes.add("Missing");
                                     NSPendingSales.attachDataSource(imtes);*/
-
+                                    callGetReturnOrderCylinderList();
 
                                 }else {
                                     Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
@@ -889,6 +891,90 @@ public class AddReconciliationActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void callGetReturnOrderCylinderList() {
+        Log.d("Api Calling==>","Api Calling");
+        final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
+        progressDialog.show();
+        ///Api/MobReturnOrder/GetReturnOrderCylinderList?search=&pageno=0&totalinpage=10&SortBy=&Sort=desc&ROid=1
+        String url = MySingalton.getInstance().URL+"/Api/MobReconciliation/GetReconciliationDetail?search=&pageno=0&totalinpage="+Integer.MAX_VALUE+
+                "&SortBy=&Sort=desc&ReconciliationId="+ROId;
+        Log.d("request==>",url);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String Response) {
+                progressDialog.dismiss();
+                Log.d("resonse ==>",Response+"");
+                JSONObject j;
+                try {
+                    j = new JSONObject(Response);
+                    if(sODetailList==null){
+                        sODetailList=new ArrayList<>();
+                        //  flgfirstload=true;
+                    }
+                    JSONArray datalist=j.getJSONArray("list");
+                    for(int i=0;i<datalist.length();i++){
+
+                        HashMap<String,String> map=new HashMap<>();
+                        JSONObject dataobj=datalist.getJSONObject(i);
+                        map.put("reconciliationDetailId",dataobj.getString("reconciliationDetailId")+"");
+                        map.put("reconciliationId",dataobj.getString("reconciliationId"));
+                        map.put("cylinderNo",dataobj.getString("cylinderNo"));
+                        map.put("cylinderId",dataobj.getString("cylinderId"));
+                        map.put("status",dataobj.getString("status"));
+                        map.put("remark",dataobj.getString("remark"));
+                        map.put("createdBy",dataobj.getString("createdBy"));
+                        map.put("createdDate",dataobj.getString("createdDate"));
+
+                        sODetailList.add(map);
+                    }
+                    sODetailListAdapter=new EditREconDetailListAdapter(sODetailList,context);
+                    recyclerView.setAdapter(sODetailListAdapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                Log.d("error==>",message+"");
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap map=new HashMap();
+                map.put("content-type","application/json");
+                return map;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(stringRequest);
     }
 
     private void callGetActiveUserData() {
