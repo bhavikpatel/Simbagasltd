@@ -57,12 +57,12 @@ public class REconDetailListAdapter extends RecyclerView.Adapter<REconDetailList
                     context.overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);*/
                     AlertDialog.Builder adb = new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                     //adb.setView(alertDialogView);
-                    adb.setTitle("You are sure won't be Delete this Sales Order Detail!");
+                    adb.setTitle("You are sure won't be Delete this Reconciliation Detail!");
                     adb.setIcon(R.drawable.ic_baseline_delete_24);
                     adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             if(isNetworkConnected()){
-                                context.callChangeCompanyStatus(podetailList.get(pos).get("roDetailId"));
+                                context.callChangeCompanyStatus(podetailList.get(pos).get("reconciliationDetailId"));
                             }else {
                                 Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
                             }
@@ -86,12 +86,12 @@ public class REconDetailListAdapter extends RecyclerView.Adapter<REconDetailList
                     context.overridePendingTransition(R.anim.enter_from_bottom, R.anim.hold_top);*/
                     AlertDialog.Builder adb = new AlertDialog.Builder(context,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
                     //adb.setView(alertDialogView);
-                    adb.setTitle("You are sure won't be Delete this Sales Order Detail!");
+                    adb.setTitle("You are sure won't be Delete this Reconciliation Detail!");
                     adb.setIcon(R.drawable.ic_baseline_delete_24);
                     adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             if(isNetworkConnected()){
-                                context.callChangeCompanyStatus(podetailList.get(pos).get("roDetailId"));
+                                context.callChangeCompanyStatus(podetailList.get(pos).get("reconciliationDetailId"));
                             }else {
                                 Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
                             }
@@ -127,7 +127,7 @@ public class REconDetailListAdapter extends RecyclerView.Adapter<REconDetailList
         holder.imgArrow.setTag(position);
         holder.rv_row.setTag(position);
         holder.txtProductName.setText(podetailList.get(position).get("cylinderNo"));
-        holder.txtQuantity.setText(podetailList.get(position).get("cylinderStatus"));
+        holder.txtQuantity.setText(podetailList.get(position).get("status"));
     }
 
     @Override

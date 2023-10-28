@@ -544,7 +544,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
         Log.d("Api Calling==>","Api Calling");
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
-        String url = MySingalton.getInstance().URL +"/Api/MobReturnOrder/SubmitRO?ROId="+ROId+
+        String url = MySingalton.getInstance().URL +"/Api/MobReconciliation/SubmitREC?RECId="+ROId+
                 "&UserId="+Integer.parseInt(settings.getString("userId","0"))+
                 "&SignImage="+SignImage+"&PhotoImage="+PhotoImage;
         Log.d("request==>",url);
@@ -655,13 +655,14 @@ public class AddReconciliationActivity extends AppCompatActivity {
                                 }
                                 for(int i=0;i<jsonArray.length();i++){
                                     HashMap<String,String> map=new HashMap<>();
-                                    map.put("roDetailId", jsonArray.getJSONObject(i).getString("roDetailId"));
-                                    map.put("roId", jsonArray.getJSONObject(i).getString("roId"));
-                                    map.put("cylinderIds", jsonArray.getJSONObject(i).getString("cylinderIds"));
-                                    map.put("cylinderStatus",jsonArray.getJSONObject(i).getString("cylinderStatus"));
-                                    map.put("remark", jsonArray.getJSONObject(i).getString("remark"));
-                                    map.put("cylinderNo",jsonArray.getJSONObject(i).getString("cylinderNo"));
+                                    map.put("reconciliationDetailId", jsonArray.getJSONObject(i).getString("reconciliationDetailId"));
+                                    map.put("reconciliationId", jsonArray.getJSONObject(i).getString("reconciliationId"));
+                                    map.put("cylinderNo", jsonArray.getJSONObject(i).getString("cylinderNo"));
+                                    map.put("cylinderId",jsonArray.getJSONObject(i).getString("cylinderId"));
+                                    map.put("status", jsonArray.getJSONObject(i).getString("status"));
+                                    map.put("remark",jsonArray.getJSONObject(i).getString("remark"));
                                     map.put("createdBy",jsonArray.getJSONObject(i).getString("createdBy"));
+                                    map.put("createdDate",jsonArray.getJSONObject(i).getString("createdDate"));
                                     sODetailList.add(map);
                                 }
 
@@ -1016,11 +1017,11 @@ public class AddReconciliationActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void callChangeCompanyStatus(String roDetailId) {
+    public void callChangeCompanyStatus(String reconciliationDetailId) {
         Log.d("Api Calling==>","Api Calling");
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
-        String url = MySingalton.getInstance().URL+"/Api/MobReturnOrder/DeleteRODetail?RODetailId="+Integer.parseInt(roDetailId)+
+            String url = MySingalton.getInstance().URL+"/Api/MobReconciliation/DeleteRECDetail?RECDetailId="+Integer.parseInt(reconciliationDetailId)+
                 "&UserId="+settings.getString("userId","1");
         Log.d("request==>",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -1034,7 +1035,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                     j = new JSONObject(Response);
                     if(j.getBoolean("status")){
                         for(int i=0;i<sODetailList.size();i++){
-                            if(sODetailList.get(i).get("roDetailId").equals(roDetailId)){
+                            if(sODetailList.get(i).get("reconciliationDetailId").equals(reconciliationDetailId)){
                                 sODetailList.remove(i);
                                 break;
                             }

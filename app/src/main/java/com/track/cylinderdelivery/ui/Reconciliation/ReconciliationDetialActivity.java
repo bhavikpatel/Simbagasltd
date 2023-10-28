@@ -76,11 +76,11 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
         }else {*/
             btnDelete.setVisibility(View.GONE);
       // }
-/*        if(mapdata.get("status").equals("Draft")){
+        if(mapdata.get("status").equals("Draft")){
             btnEdit.setVisibility(View.VISIBLE);
-        }else {*/
+        }else {
             btnEdit.setVisibility(View.GONE);
-       // }
+        }
         txtPoNumber.setText(mapdata.get("reconciliationNumber"));
         txtUserName.setText(mapdata.get("username"));
         txtStatus.setText(mapdata.get("status"));

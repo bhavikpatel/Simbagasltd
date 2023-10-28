@@ -64,7 +64,7 @@
         android:layout_below="@+id/lv_underline"
         android:layout_marginTop="-10dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txtPoNumber"
@@ -151,6 +151,7 @@
             android:textSize="20sp"
             app:popupTextAlignment="start"
             app:textTint="@color/black" />
+
         <TextView
             android:id="@+id/txtUserName2"
             android:layout_width="wrap_content"
@@ -201,41 +202,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/lv_underline"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/txtClientList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/status1"
-            android:textSize="@dimen/lblForm" />
-
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/NSPendingSales"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtClientList"
-            android:backgroundTint="@color/veryLightGray"
-            android:textSize="20sp"
-            app:popupTextAlignment="start"
-            app:textTint="@color/black" />
-
-        <TextView
-            android:id="@+id/txtPOGeneratedBy1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/NSPendingSales"
-            android:layout_marginTop="10dp"
-            android:text="Remark:"
-            android:textSize="@dimen/lblForm" />
-
-        <EditText
-            android:id="@+id/edtRemark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtPOGeneratedBy1"
-            android:textSize="@dimen/formEditTextSize" />
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/btnScanCylinders"
