@@ -146,7 +146,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
         NSWarehouse=findViewById(R.id.NSWarehouse);
         edtSOGeneratedBy=findViewById(R.id.edtPOGeneratedBy);
         edtSOGeneratedBy.setText(settings.getString("fullName",""));
-        spSorting=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
+        spSorting=context.getSharedPreferences("ReconFilter",MODE_PRIVATE);
         btnCancel=findViewById(R.id.btnCancel);
         lvTab1=findViewById(R.id.lvTab1);
         lvTab2=findViewById(R.id.lvTab2);

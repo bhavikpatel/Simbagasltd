@@ -58,7 +58,7 @@ public class ReconciliationDetialActivity extends AppCompatActivity {
         mapdata= (HashMap<String, String>) getIntent().getSerializableExtra("editData");
         context=this;
         settings=context.getSharedPreferences("setting",MODE_PRIVATE);
-        CompanyUpdate=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
+        CompanyUpdate=context.getSharedPreferences("ReconFilter",MODE_PRIVATE);
         Log.d("data==>",mapdata.toString()+"");
         btnCancel=(ImageView)findViewById(R.id.btnCancel);
         rvBlank=(RelativeLayout)findViewById(R.id.rvBlank);

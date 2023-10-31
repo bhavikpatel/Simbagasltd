@@ -148,7 +148,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
         edtSOGeneratedBy=findViewById(R.id.edtPOGeneratedBy);
         edtSOGeneratedBy.setText(mapdata.get("generatedBy"));
         edtSOGeneratedBy.setText(settings.getString("fullName",""));
-        spSorting=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
+        spSorting=context.getSharedPreferences("ReconFilter",MODE_PRIVATE);
         btnCancel=findViewById(R.id.btnCancel);
         lvTab1=findViewById(R.id.lvTab1);
         lvTab2=findViewById(R.id.lvTab2);
