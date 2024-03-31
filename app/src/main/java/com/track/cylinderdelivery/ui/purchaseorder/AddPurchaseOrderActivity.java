@@ -3,6 +3,7 @@ package com.track.cylinderdelivery.ui.purchaseorder;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,16 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -62,8 +67,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -129,11 +136,15 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
     private int qtygaskg;
     TextView txtUnit;
     String unit="KG";
+    private int GALLERY = 1, CAMERA = 2;
 
     private static final int CAMERA_REQUEST = 1888;
    // private ImageView imageView;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private String imgUrl;
+
+    private static final int REQUEST_IMAGE_PICK = 102;
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +219,8 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         txtClientPOUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                showOptionsDialog();
+                //dispatchTakePictureIntent();
             }
         });
         edtPoDate.setOnClickListener(new View.OnClickListener() {
@@ -370,6 +382,42 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showOptionsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose an Option");
+        builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dispatchTakePictureIntent();
+            }
+        });
+        builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                checkStoragePermission();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @SuppressLint("NewApi")
+    private void checkStoragePermission() {
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        }else{
+
+        }
+        openImagePicker();
+
+    }
+    private void openImagePicker() {
+        Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        pickIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(pickIntent, "Select Picture"), REQUEST_IMAGE_PICK);
     }
 
     private void callSubmitPO() {
@@ -934,18 +982,37 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             Log.d("result==>", "success");
             if(photo!=null) {
-                uploadimage(photo);
+                uploadimage(photo,100);
+            }
+        }else if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            Bitmap photo = uriToBitmap(selectedImageUri);
+            if(photo!=null) {
+                uploadimage(photo,100);
             }
         }
     }
-    private void uploadimage(Bitmap signatureBitmap) {
+    private Bitmap uriToBitmap(Uri uri) {
+        Bitmap bitmap = null;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            bitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+    private void uploadimage(Bitmap signatureBitmap, int quality) {
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
         MarketPlaceApiInterface apiService = Apiclient.getClient().create(MarketPlaceApiInterface.class);
         File file = new File(getCacheDir().getPath() +"photo"+PONumber+".png");
         try {
             OutputStream fOut = new FileOutputStream(file);
-            signatureBitmap.compress(Bitmap.CompressFormat.PNG,100,fOut);
+            signatureBitmap.compress(Bitmap.CompressFormat.PNG,quality,fOut);
 
             fOut.flush();
             fOut.close();

@@ -611,7 +611,7 @@ public class EditReturnOrderActivity extends AppCompatActivity {
                                     imtes.add("Select");
                                     imtes.add("Empty");
                                     imtes.add("Damage");
-                                    imtes.add("Missing");
+                                    imtes.add("Filled");
                                     NSPendingSales.attachDataSource(imtes);
                                     callGetReturnOrderCylinderList();
                                 }else {

@@ -1,10 +1,13 @@
 package com.track.cylinderdelivery;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +15,23 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.track.cylinderdelivery.ui.BaseActivity;
+import com.track.cylinderdelivery.ui.acknowledge.AcknowledgeListAdapter;
+import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -30,6 +47,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Dashboard extends BaseActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private Context context;
@@ -40,6 +61,7 @@ public class Dashboard extends BaseActivity {
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     JSONArray accessMOdelarray;
     String menuNumber="";
+    private static final int MY_SOCKET_TIMEOUT_MS = 100000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +123,10 @@ public class Dashboard extends BaseActivity {
         txtEmail.setText(settings.getString("email",""));
         //int versionCode = BuildConfig.VERSION_CODE;
         String versionName = BuildConfig.VERSION_NAME;
+        double versionNamecheck=Double.parseDouble(versionName);
         txtVersion.setText("Version: "+ versionName);
+        Log.d("versionNameCheck==>",versionNamecheck+"");
+        callVersionCheckAPI(versionNamecheck);
         txtLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +228,80 @@ public class Dashboard extends BaseActivity {
             navController.navigate(R.id.action_reconciliation);
         }
         menuNumber="";
+    }
+
+    private void callVersionCheckAPI(double versionNamecheck) {
+
+        String url = MySingalton.getInstance().URL+"/api/mobhome/checkversion";
+        Log.d("request==>",url);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String Response) {
+
+                Log.d("resonse ==>",Response+"");
+                JSONObject j;
+                try {
+                    j = new JSONObject(Response);
+                    if(j.getBoolean("status")==true){
+                        double updatedVersion=j.getDouble("data");
+                        Log.d("updatedVersion==>",updatedVersion+"");
+                        if(updatedVersion>versionNamecheck){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setMessage("Update new version!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.track.cylinderdelivery"));
+                                            startActivity(intent);
+                                        }
+                                    });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                String message = null;
+                if (error instanceof NetworkError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                Log.d("error==>",message+"");
+            }
+        }){
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap map=new HashMap();
+                map.put("content-type","application/json");
+                return map;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(stringRequest);
     }
 
     private void openQrScan() {

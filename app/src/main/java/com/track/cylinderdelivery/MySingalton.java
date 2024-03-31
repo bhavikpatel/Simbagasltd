@@ -8,9 +8,9 @@ import android.content.DialogInterface;
 public class MySingalton {
     private static MySingalton mInstance= null;
 
-   public String URL="https://admin.simbagas.com";
+   //public String URL="https://admin.simbagas.com";
    //public String URL="http://test.hdvivah.in";
-   //public String URL="http://qa.simbagas.com";
+   public String URL="http://qa.simbagas.com";
 
    //username: admin@admin.com
     //password: admin@123

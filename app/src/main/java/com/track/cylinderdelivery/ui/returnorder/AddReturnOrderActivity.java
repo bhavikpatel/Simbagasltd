@@ -162,13 +162,11 @@ public class AddReturnOrderActivity extends AppCompatActivity {
         btnSaveAsDraft=findViewById(R.id.btnSaveAsDraft);
         sODetailList=new ArrayList<>();
 
-
         if(isNetworkConnected()) {
             callGetActiveUserData();
         }else {
             Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
         }
-
 
         btnSaveAsDraft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -619,7 +617,7 @@ public class AddReturnOrderActivity extends AppCompatActivity {
                                     imtes.add("Select");
                                     imtes.add("Empty");
                                     imtes.add("Damage");
-                                    imtes.add("Missing");
+                                    imtes.add("Filled");
                                     NSPendingSales.attachDataSource(imtes);
 
 
