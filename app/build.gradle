@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "com.track.cylinderdelivery"
         minSdkVersion 21
-        //noinspection EditedTargetSdkVersion
-        targetSdk 34
+        //noinspection OldTargetApi,EditedTargetSdkVersion
+        targetSdk 35
         versionCode 9
         versionName '2.7'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,43 +33,43 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.annotation:annotation:1.9.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.navigation:navigation-fragment:2.3.2'
-    implementation 'androidx.navigation:navigation-ui:2.3.2'
+    implementation 'androidx.navigation:navigation-fragment:2.8.4'
+    implementation 'androidx.navigation:navigation-ui:2.8.4'
 
 
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.volley:volley:1.2.1'
     //implementation 'com.android.volley:volley:1.2.1'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-    implementation 'com.google.firebase:firebase-messaging:23.0.8'
-    implementation 'com.google.firebase:firebase-messaging-directboot:23.1.1'
+    implementation 'com.google.firebase:firebase-messaging:24.1.0'
+    implementation 'com.google.firebase:firebase-messaging-directboot:24.1.0'
     //implementation 'androidx.work:work-runtime:2.7.1'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
     //implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
     //implementation 'com.journeyapps:zxing-android-legacy:2.3.0@aar'
     //implementation 'com.journeyapps:zxing-android-integration:2.3.0@aar'
     //implementation 'com.google.zxing:core:3.4.0'
     implementation('com.journeyapps:zxing-android-embedded:4.2.0') { transitive = false }
-    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.google.zxing:core:3.4.0'
 
-    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
    // implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.williamww:silky-signature:0.1.0'
+    implementation 'com.williamww:silky-signature:0.0.6'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0' //Adding Retrofit2
 
-    implementation 'com.google.android.gms:play-services-code-scanner:16.0.0-beta1'
+    implementation 'com.google.android.gms:play-services-code-scanner:16.1.0'
     /*implementation 'com.google.android.material:material:1.5.0'*/
     androidTestImplementation 'com.google.truth:truth:1.0.1'
 
@@ -78,8 +78,14 @@ dependencies {
 
     // For an optimal experience using FCM, add the Firebase SDK
     // for Google Analytics. This is recommended, but not required.
-    implementation 'com.google.firebase:firebase-analytics:21.1.1'
+    implementation 'com.google.firebase:firebase-analytics:22.1.2'
 
-    implementation "com.google.android.gms:play-services-auth:20.3.0"
+    implementation "com.google.android.gms:play-services-auth:21.2.0"
 
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

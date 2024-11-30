@@ -24,6 +24,7 @@
         android:contentDescription="@string/todo"
         android:src="@drawable/logo_bg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

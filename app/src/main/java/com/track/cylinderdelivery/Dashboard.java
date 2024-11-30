@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -122,7 +123,8 @@ public class Dashboard extends BaseActivity {
         txtUserName.setText(settings.getString("fullName",""));
         txtEmail.setText(settings.getString("email",""));
         //int versionCode = BuildConfig.VERSION_CODE;
-        String versionName = BuildConfig.VERSION_NAME;
+        //String versionName = BuildConfig.VERSION_NAME;
+        String versionName=getVersionName(context);
         double versionNamecheck=Double.parseDouble(versionName);
         txtVersion.setText("Version: "+ versionName);
         Log.d("versionNameCheck==>",versionNamecheck+"");
@@ -418,6 +420,22 @@ public class Dashboard extends BaseActivity {
             }
             // other 'case' lines to check for other
             // permissions this app might request
+        }
+    }
+
+    public String getVersionName(Context context) {
+        try {
+            // Get PackageManager instance
+            PackageManager packageManager = context.getPackageManager();
+
+            // Get the PackageInfo object for the app's package
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+
+            // Return the version name from the PackageInfo object
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null; // Or handle the exception as needed
         }
     }
 }
