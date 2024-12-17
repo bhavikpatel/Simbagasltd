@@ -82,7 +82,7 @@ public class PurchaseOrderFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_purchaseorder, container, false);
         context=getActivity();
         setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.purchaseorder));
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.purchaseorder));
         settings=context.getSharedPreferences("setting",MODE_PRIVATE);
         progressBar=root.findViewById(R.id.progressBar);
         svUser=root.findViewById(R.id.svUser);

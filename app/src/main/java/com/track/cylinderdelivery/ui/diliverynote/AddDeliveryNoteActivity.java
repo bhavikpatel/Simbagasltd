@@ -23,6 +23,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -50,6 +51,7 @@ import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.cylinder.AddCylinderActivity;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
 import com.track.cylinderdelivery.ui.purchaseorder.ProductAddListAdapter;
+import com.track.cylinderdelivery.utils.CustomSpinner;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -61,6 +63,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -73,7 +76,7 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
     EditText edtDNnumber,edtDNDate,edtDNGeneratedBy;
     Calendar myCalendar;
     private SharedPreferences settings;
-    NiceSpinner NSAllocatedEmployee;
+    CustomSpinner NSAllocatedEmployee;
     private static final int MY_SOCKET_TIMEOUT_MS = 10000;
     private int userpos=0;
     private int UserId;
@@ -126,9 +129,17 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
         edtDNnumber=findViewById(R.id.edtDNnumber);
         edtDNnumber.setText(DNNumber);
         edtDNDate=findViewById(R.id.edtDNDate);
+        Date c = Calendar.getInstance().getTime();
+        Log.d("soDate==>",c+"");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        edtDNDate.setText(formattedDate);
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        DNDate=df1.format(c);
         myCalendar = Calendar.getInstance();
         settings=context.getSharedPreferences("setting",MODE_PRIVATE);
         NSAllocatedEmployee=findViewById(R.id.NSAllocatedEmployee);
+        NSAllocatedEmployee.setText("Select");
         edtDNGeneratedBy=findViewById(R.id.edtDNGeneratedBy);
         edtDNGeneratedBy.setText(settings.getString("fullName",""));
         btnSaveAndContinue=findViewById(R.id.btnSaveAndContinue);
@@ -224,10 +235,20 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
                     userFilterEditor.commit();
                     DNNumber=edtDNnumber.getText().toString();
                     DNGeneratedBy=edtDNGeneratedBy.getText().toString();
-                    try {
-                        callAddEditDN();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    userpos=0;
+                    for(int i=0;i<userList.size();i++){
+                        if(userList.get(i).get("fullName").equals(NSAllocatedEmployee.getText().toString())){
+                            UserId = Integer.parseInt(userList.get(i).get("userId"));
+                            userpos=i+1;
+                            break;
+                        }
+                    }
+                    if(validate1()){
+                        try {
+                            callAddEditDN();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }else {
                     Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
@@ -240,7 +261,7 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
                 finish();
             }
         });
-        NSAllocatedEmployee.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+       /* NSAllocatedEmployee.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
@@ -250,13 +271,13 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
                     UserId = Integer.parseInt(userList.get(position - 1).get("userId"));
                 }
             }
-        });
-        NSAllocatedEmployee.setOnClickListener(new View.OnClickListener() {
+        });*/
+/*        NSAllocatedEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideSoftKeyboard(v);
             }
-        });
+        });*/
         NSClientPenPurDet.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
@@ -313,14 +334,14 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
                 updateLabel();
             }
         };
-        edtDNDate.setOnClickListener(new View.OnClickListener() {
+/*        edtDNDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(context, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
+        });*/
         txtCylinderNos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -796,7 +817,14 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
                             imtes.add(dataobj.getString("fullName") + "");
                             userList.add(map);
                         }
-                        NSAllocatedEmployee.attachDataSource(imtes);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        NSAllocatedEmployee.setAdapter(customSpinnerAdapter);
+
+                       // NSAllocatedEmployee.attachDataSource(imtes);
                     }else{
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
@@ -872,6 +900,7 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 Log.i("Camera", "G : " + grantResults[0]);
@@ -928,6 +957,18 @@ public class AddDeliveryNoteActivity extends AppCompatActivity {
        }else {
            NSClientPenPurDet.setError(null);
        }
+        return valid;
+    }
+    public boolean validate1() {
+        boolean valid = true;
+
+        if (userpos<=0) {
+            NSAllocatedEmployee.setError("Field is Required.");
+            valid = false;
+        } else {
+            NSAllocatedEmployee.setError(null);
+        }
+
         return valid;
     }
     @SuppressLint("MissingPermission")

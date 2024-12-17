@@ -22,6 +22,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ import com.android.volley.toolbox.Volley;
 import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
+import com.track.cylinderdelivery.utils.CustomSpinner;
 import com.track.cylinderdelivery.utils.SignatureActivity;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
@@ -69,7 +71,7 @@ public class EditReturnOrderActivity extends AppCompatActivity {
     private EditReturnOrderActivity context;
     private EditText edtRoNumber,edtSoDate,edtSOGeneratedBy,edtVehicleno;
     private String roDate;
-    private NiceSpinner ROUsers;
+    private CustomSpinner ROUsers;
     private static final int MY_SOCKET_TIMEOUT_MS = 10000;
     private SharedPreferences settings;
     private ArrayList<HashMap<String,String>> usersList;
@@ -266,6 +268,16 @@ public class EditReturnOrderActivity extends AppCompatActivity {
                     SharedPreferences.Editor userFilterEditor = spSorting.edit();
                     userFilterEditor.putBoolean("refilter",true);
                     userFilterEditor.commit();
+                    delnotepos=0;
+                    for(int i=0;i<usersList.size();i++){
+                        if(usersList.get(i).get("fullName").equals(ROUsers.getText().toString())){
+                            ROUsers.setError(null);
+                            userId=usersList.get(i).get("userId");
+                            fullName=usersList.get(i).get("fullName");
+                            delnotepos=i+1;
+                            break;
+                        }
+                    }
                     if(validate()){
                         try {
                             callAddEditSO();
@@ -285,7 +297,7 @@ public class EditReturnOrderActivity extends AppCompatActivity {
             }
         });
 
-        ROUsers.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+/*        ROUsers.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 ROUsers.setError(null);
@@ -302,13 +314,13 @@ public class EditReturnOrderActivity extends AppCompatActivity {
                     ROUsers.setSelectedIndex(0);
                 }
             }
-        });
-        ROUsers.setOnClickListener(new View.OnClickListener() {
+        });*/
+/*        ROUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideSoftKeyboard(v);
             }
-        });
+        });*/
     }
 
     private void callSubmitSO() {
@@ -513,6 +525,7 @@ public class EditReturnOrderActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 Log.i("Camera", "G : " + grantResults[0]);
@@ -768,14 +781,21 @@ public class EditReturnOrderActivity extends AppCompatActivity {
                                 try{
                                     userId=dataobj.getString("userId");
                                     fullName=dataobj.getString("fullName");
+                                    ROUsers.setText(fullName);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
                             }
                             usersList.add(map);
                         }
-                        ROUsers.attachDataSource(imtes);
-                        ROUsers.setSelectedIndex(delnotepos);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        ROUsers.setAdapter(customSpinnerAdapter);
+                      //  ROUsers.attachDataSource(imtes);
+                       // ROUsers.setSelectedIndex(delnotepos);
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }

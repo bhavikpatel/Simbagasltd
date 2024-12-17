@@ -81,7 +81,7 @@ public class ReconciliationFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_reconciliatoin, container, false);
         context=getActivity();
         setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reconciliation List");
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reconciliation List");
         recyclerView=root.findViewById(R.id.rv_product_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

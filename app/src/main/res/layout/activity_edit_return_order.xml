@@ -109,14 +109,23 @@
             android:text="@string/user_name"
             android:textSize="@dimen/lblForm" />
 
-        <org.angmarch.views.NiceSpinner
+        <com.track.cylinderdelivery.utils.CustomSpinner
+            android:id="@+id/NSUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/veryLightGray"
+            android:textSize="20sp"
+            android:padding="10dp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />
+<!--        <org.angmarch.views.NiceSpinner
             android:id="@+id/NSUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/veryLightGray"
             android:textSize="@dimen/formEditTextSize"
             app:popupTextAlignment="start"
-            app:textTint="@color/black" />
+            app:textTint="@color/black" />-->
 
         <TextView
             android:id="@+id/txtPOGeneratedBy"

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.CylinderWarehouseMapping.FilterEmptyCylActivity;
 import com.track.cylinderdelivery.ui.CylinderWarehouseMapping.FilterFilledCylActivity;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
+import com.track.cylinderdelivery.utils.CustomSpinner;
 import com.track.cylinderdelivery.utils.SignatureActivity;
 import com.track.cylinderdelivery.utils.SignatureActivityROCI;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
@@ -65,7 +67,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
     ArrayList<String> qrcodeList;
     ImageView btnScanCylinders;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
-    NiceSpinner spUser,spToWarehouse;
+    CustomSpinner spUser,spToWarehouse;
     private int fromwharehouspos=-1;
     private int towarehousepos=-1;
     SharedPreferences spFilledFilter;
@@ -74,6 +76,8 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
     private ArrayList<HashMap<String,String>> towhereHouseList;
     String SignImage="";
     private TextView txtSignaure;
+    private int userId;
+    private int warehouseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +97,9 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         qrcodeList=new ArrayList<String>();
         btnScanCylinders=findViewById(R.id.btnScanCylinders);
         spUser=findViewById(R.id.spFromWarehouse);
+        spUser.setText("Select");
         spToWarehouse=findViewById(R.id.spToWarehouse);
+        spToWarehouse.setText("Select");
         btnSubmit=findViewById(R.id.btnSubmit);
         txtSignaure=findViewById(R.id.txtSignaure);
         spFilledFilter=context.getSharedPreferences("ROFilter",MODE_PRIVATE);
@@ -111,6 +117,23 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromwharehouspos=0;
+                for(int i=0;i<userList.size();i++){
+                    if(userList.get(i).get("fullName").equals(spUser.getText().toString())){
+                        fromwharehouspos=i+1;
+                        userId=Integer.parseInt(userList.get(i).get("userId"));
+                        break;
+                    }
+                }
+                towarehousepos=0;
+                for(int i=0;i<towhereHouseList.size();i++){
+                    if(towhereHouseList.get(i).get("name").equals(spToWarehouse.getText().toString())){
+                           towarehousepos=i+1;
+                           warehouseId=Integer.parseInt(towhereHouseList.get(i).get("warehouseId"));
+                        break;
+                    }
+                }
+
                 if(validate()){
                     Intent intent=new Intent(context, SignatureActivityROCI.class);
                     intent.putExtra("ROCI",0);
@@ -134,7 +157,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                 SharedPreferences.Editor userFilterEditor = spFilledFilter.edit();
                 userFilterEditor.putBoolean("refilter",true);
                 if(fromwharehouspos>0){
-                    userFilterEditor.putString("userId",userList.get(fromwharehouspos-1).get("userId"));
+                    userFilterEditor.putString("userId",userId+"");
                 }
                 userFilterEditor.commit();
                 finish();
@@ -155,7 +178,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                 }
             }
         });
-        spUser.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+/*        spUser.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
@@ -168,7 +191,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                 Log.d("checkedId==>",position+"");
                 towarehousepos=position;
             }
-        });
+        });*/
     }
 
     private void call1GetActiveEmployeeData() {
@@ -201,7 +224,13 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                             imtes.add(jsonArray.getJSONObject(i).getString("fullName") +"");
                             userList.add(map);
                         }
-                        spUser.attachDataSource(imtes);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        spUser.setAdapter(customSpinnerAdapter);
+                        //spUser.attachDataSource(imtes);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -261,8 +290,8 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
        // jsonBody.put("FromWarehouseId",Integer.parseInt(wharehouselist.get(fromwharehouspos-1).get("warehouseId")));
      //   jsonBody.put("WarehouseId",Integer.parseInt(wharehouselist.get(towarehousepos-1).get("warehouseId")));
         JSONArray jsonArrayCylList=new JSONArray(qrcodeList);
-        jsonBody.put("UserId",Integer.parseInt(userList.get(fromwharehouspos-1).get("userId")));
-        jsonBody.put("WarehouseId",Integer.parseInt(towhereHouseList.get(towarehousepos-1).get("warehouseId")));
+        jsonBody.put("UserId",userId);
+        jsonBody.put("WarehouseId",warehouseId);
         jsonBody.put("CylinderList",jsonArrayCylList);
         jsonBody.put("CreatedBy",Integer.parseInt(setting.getString("userId","1")));
         jsonBody.put("TransferBy",setting.getString("fullName",""));
@@ -288,7 +317,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                             SharedPreferences.Editor userFilterEditor = spFilledFilter.edit();
                             userFilterEditor.putBoolean("refilter",true);
                             if(fromwharehouspos>0){
-                                userFilterEditor.putString("userId",userList.get(fromwharehouspos-1).get("userId"));
+                                userFilterEditor.putString("userId",userId+"");
                             }
                             userFilterEditor.commit();
                         }catch (Exception e){
@@ -329,7 +358,7 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
         SharedPreferences.Editor userFilterEditor = spFilledFilter.edit();
         userFilterEditor.putBoolean("refilter",true);
         if(fromwharehouspos>0){
-            userFilterEditor.putString("userId",userList.get(fromwharehouspos-1).get("userId"));
+            userFilterEditor.putString("userId",userId+"");
         }
         userFilterEditor.commit();
         onBackPressed();
@@ -440,7 +469,13 @@ public class AddRoCylinderWarehouseActivity extends AppCompatActivity {
                             imtes.add(jsonArray.getJSONObject(i).getString("name"));
                             towhereHouseList.add(map);
                         }
-                        spToWarehouse.attachDataSource(imtes);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        spToWarehouse.setAdapter(customSpinnerAdapter);
+                        //spToWarehouse.attachDataSource(imtes);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

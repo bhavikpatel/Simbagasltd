@@ -140,10 +140,10 @@ public class SignatureActivity extends AppCompatActivity {
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
         MarketPlaceApiInterface apiService = Apiclient.getClient().create(MarketPlaceApiInterface.class);
-        File file = new File(getCacheDir().getPath() +"sigimg"+SOId+".png");
+        File file = new File(getCacheDir().getPath() +"sigimg"+SOId+".jpg");
         try {
             OutputStream fOut = new FileOutputStream(file);
-            signatureBitmap.compress(Bitmap.CompressFormat.PNG,100,fOut);
+            signatureBitmap.compress(Bitmap.CompressFormat.JPEG,100,fOut);
             fOut.flush();
             fOut.close();
         } catch (IOException e) {

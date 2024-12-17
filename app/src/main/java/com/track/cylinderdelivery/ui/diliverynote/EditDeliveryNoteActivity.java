@@ -21,6 +21,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ import com.android.volley.toolbox.Volley;
 import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.ui.cylinder.CylinderQRActivity;
+import com.track.cylinderdelivery.utils.CustomSpinner;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -70,7 +72,7 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
     EditText edtDNnumber,edtDNDate,edtDNGeneratedBy;
     private static final int MY_SOCKET_TIMEOUT_MS = 10000;
     private ArrayList<HashMap<String, String>> userList;
-    NiceSpinner NSAllocatedEmployee;
+    CustomSpinner NSAllocatedEmployee;
     private int userpos=0;
     private int UserId;
     LinearLayout lvTab1;
@@ -119,6 +121,7 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
         edtDNnumber=findViewById(R.id.edtDNnumber);
         edtDNDate=findViewById(R.id.edtDNDate);
         NSAllocatedEmployee=findViewById(R.id.NSAllocatedEmployee);
+        NSAllocatedEmployee.setText("Select");
         edtDNGeneratedBy=findViewById(R.id.edtDNGeneratedBy);
         lvTab1=findViewById(R.id.lvTab1);
         lvTab2=findViewById(R.id.lvTab2);
@@ -291,10 +294,20 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
                     dNDetailList=null;
                     DNNumber=edtDNnumber.getText().toString();
                     DNGeneratedBy=edtDNGeneratedBy.getText().toString();
-                    try {
-                        callAddEditDN();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    userpos=0;
+                    for(int i=0;i<userList.size();i++){
+                        if(userList.get(i).get("fullName").equals(NSAllocatedEmployee.getText().toString())){
+                            userpos=i+1;
+                            UserId = Integer.parseInt(userList.get(i).get("userId"));
+                            break;
+                        }
+                    }
+                    if(validate1()) {
+                        try {
+                            callAddEditDN();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }else {
                     Toast.makeText(context, "Kindly check your internet connectivity.", Toast.LENGTH_LONG).show();
@@ -307,7 +320,7 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
                 finish();
             }
         });
-        NSAllocatedEmployee.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+/*        NSAllocatedEmployee.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
@@ -317,15 +330,26 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
                     UserId = Integer.parseInt(userList.get(position - 1).get("userId"));
                 }
             }
-        });
-        NSAllocatedEmployee.setOnClickListener(new View.OnClickListener() {
+        });*/
+/*        NSAllocatedEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideSoftKeyboard(v);
             }
-        });
+        });*/
     }
 
+    public boolean validate1() {
+        boolean valid = true;
+        if (userpos<=0) {
+            NSAllocatedEmployee.setError("Field is Required.");
+            valid = false;
+        } else {
+            NSAllocatedEmployee.setError(null);
+        }
+
+        return valid;
+    }
     private void callSubmitDN() {
         Log.d("Api Calling==>","Api Calling");
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
@@ -1026,12 +1050,20 @@ public class EditDeliveryNoteActivity extends AppCompatActivity {
                             map.put("fullName",dataobj.getString("fullName"));
                             if(mapdata.get("username").equals(dataobj.getString("fullName"))){
                                 userpos=i+1;
+                                NSAllocatedEmployee.setText(dataobj.getString("fullName"));
                             }
                             imtes.add(dataobj.getString("fullName") + "");
                             userList.add(map);
                         }
-                        NSAllocatedEmployee.attachDataSource(imtes);
-                        NSAllocatedEmployee.setSelectedIndex(userpos);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        NSAllocatedEmployee.setAdapter(customSpinnerAdapter);
+
+                        //NSAllocatedEmployee.attachDataSource(imtes);
+                        //NSAllocatedEmployee.setSelectedIndex(userpos);
                     }else{
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }

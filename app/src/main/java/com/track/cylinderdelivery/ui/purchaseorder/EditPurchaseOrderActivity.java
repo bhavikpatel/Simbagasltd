@@ -30,6 +30,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -55,7 +56,10 @@ import com.android.volley.toolbox.Volley;
 import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.utils.Apiclient;
+import com.track.cylinderdelivery.utils.CustomSpinner;
+import com.track.cylinderdelivery.utils.FileUtils;
 import com.track.cylinderdelivery.utils.MarketPlaceApiInterface;
+import com.track.cylinderdelivery.utils.MarketPlaceApiInterfacePO;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -93,7 +97,8 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
     EditText edtPoNumber;
     EditText edtPoDate;
     EditText edtPOGeneratedBy,edtClientPOReference;
-    NiceSpinner NSUserName;
+    CustomSpinner NSUserName;
+    //NiceSpinner NSUserName;
     private int userpos=0;
     private int UserId;
     String PONumber;
@@ -149,6 +154,7 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 200;
     private static final int REQUEST_IMAGE_PICK = 102;
+    private static final int REQUEST_CODE_SELECT_DOCUMENT=103;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,7 +204,12 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
         PoDate=mapdata.get("poDate");
         edtPOGeneratedBy.setText(mapdata.get("poGeneratedBy"));
         edtClientPOReference.setText(mapdata.get("clientPOReference"));
-        txtClientPOUpload.setText(mapdata.get("filePath"));
+        if(mapdata.get("filePath").toString().trim().length()==0){
+            txtClientPOUpload.setText(getString(R.string.NoFileChosen));
+        }else {
+            txtClientPOUpload.setText(mapdata.get("filePath"));
+        }
+        userList= new ArrayList<>();
 
         if(!edtPOGeneratedBy.getText().equals("")){
             edtPOGeneratedBy.setEnabled(false);
@@ -238,7 +249,7 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        NSUserName.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+/*        NSUserName.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
@@ -248,11 +259,12 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                     UserId = Integer.parseInt(userList.get(position - 1).get("userId"));
                 }
             }
-        });
+        });*/
         NSUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideSoftKeyboard(v);
+                //hideSoftKeyboard(v);
+                NSUserName.setError(null);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +283,14 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                     PoNumber=edtPoNumber.getText().toString();
                     //PoDate=edtPoDate.getText().toString();
                     POGeneratedBy=edtPOGeneratedBy.getText().toString();
+                    userpos=0;
+                    for(int i=0;i<userList.size();i++){
+                        if(userList.get(i).get("fullName").equals(NSUserName.getText().toString())){
+                            userpos=i+1;
+                            UserId = Integer.parseInt(userList.get(i).get("userId"));
+                            break;
+                        }
+                    }
                     if(validate()){
                         try {
                             callAddEditPO();
@@ -408,8 +428,34 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                 checkStoragePermission();
             }
         });
+        builder.setNeutralButton("Document", new DialogInterface.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                checkStoragePermission1();
+            }
+        });
         builder.setCancelable(false);
         builder.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES. M)
+    @SuppressLint("NewApi")
+    private void checkStoragePermission1() {
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            openDocPicker();
+        }else{
+            openDocPicker();
+        }
+    }
+    private void openDocPicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("application/pdf"); // You can specify file type like "application/pdf" for PDFs
+        intent.addCategory(Intent.CATEGORY_OPENABLE); // Ensures the file picker can open files
+        startActivityForResult(Intent.createChooser(intent, "Select Document"), REQUEST_CODE_SELECT_DOCUMENT);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -454,7 +500,63 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
             if(photo!=null) {
                 uploadimage(photo,100);
             }
+        }else if(requestCode == REQUEST_CODE_SELECT_DOCUMENT && resultCode == RESULT_OK) {
+            Uri documentUri = data.getData();
+            Log.d("documentUri==>",documentUri.toString()+"");
+            if (documentUri != null) {
+                // Upload the document to the server
+                uploadDocument(documentUri);
+            } else {
+                Toast.makeText(this, "Unable to get the file path.", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private void uploadDocument(Uri documentPath) {
+        final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
+        progressDialog.show();
+
+        // Create the file object using the file path
+        File file = FileUtils.convertUriToFile(this, documentPath);
+
+        if (!file.exists()) {
+            Toast.makeText(context, "Document not found", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
+
+        // Setup Retrofit API client and interface
+        MarketPlaceApiInterfacePO apiService = Apiclient.getClientPO().create(MarketPlaceApiInterfacePO.class);
+
+        // Prepare the request body for the document file
+        RequestBody requestFile = RequestBody.create(MediaType.parse("application/*"), file);  // Adjust the MIME type for your document (e.g., application/pdf)
+
+        // Create MultipartBody.Part for file upload
+        MultipartBody.Part documentPart = MultipartBody.Part.createFormData("files", file.getName(), requestFile);
+
+        // Make the API call to upload the document
+        apiService.UpdateMarketPlaceProducts(Collections.singletonList(documentPart))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                        try {
+                            // Handle the server response and get the document URL
+                            JSONObject j = new JSONObject(response.body().string());
+                            String documentUrl = j.getString("data");
+                            txtClientPOUpload.setText(documentUrl);  // You can display the URL or other response data here
+                            Log.d("onResponse==>", "" + documentUrl);
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d("onFailure", "onResponse: " + t.getMessage());
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
     private Bitmap uriToBitmap(Uri uri) {
@@ -474,10 +576,10 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
         final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
         progressDialog.show();
         MarketPlaceApiInterface apiService = Apiclient.getClient().create(MarketPlaceApiInterface.class);
-        File file = new File(getCacheDir().getPath() +"photo"+PONumber+".png");
+        File file = new File(getCacheDir().getPath() +"photo"+PONumber+".jpg");
         try {
             OutputStream fOut = new FileOutputStream(file);
-            signatureBitmap.compress(Bitmap.CompressFormat.PNG,quality,fOut);
+            signatureBitmap.compress(Bitmap.CompressFormat.JPEG,quality,fOut);
             fOut.flush();
             fOut.close();
         } catch (IOException e) {
@@ -612,13 +714,13 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                 url,new Response.Listener<String>() {
             @Override
             public void onResponse(String Response) {
+
                 progressDialog.dismiss();
                 Log.d("resonse ==>",Response+"");
                 JSONObject j;
                 try {
                     j = new JSONObject(Response);
                     if(j.getBoolean("status")){
-                        userList=new ArrayList<>();
                         JSONArray datalist=j.getJSONArray("data");
                         List<String> imtes=new ArrayList<>();
                         imtes.add("Select");
@@ -630,16 +732,24 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
                             imtes.add(dataobj.getString("fullName") + "");
                             userList.add(map);
                         }
-                        NSUserName.attachDataSource(imtes);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        NSUserName.setAdapter(customSpinnerAdapter);
+                        //NSUserName.attachDataSource(imtes);
                         for(int i=0;i<userList.size();i++){
                             if(userList.get(i).get("userId").equals(mapdata.get("userId"))){
-                                userpos=i;
+                                //Log.d("userList==>",userList.get(i).get("userId"));
+                                //Log.d("mapdata==>",mapdata.get("userId"));
+                                userpos=i+1;
                                 break;
                             }
                         }
                         if(userpos!=0){
                             UserId = Integer.parseInt(userList.get(userpos - 1).get("userId"));
-                            NSUserName.setSelectedIndex(userpos+1);
+                            NSUserName.setText(userList.get(userpos - 1).get("fullName"));
                         }
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();

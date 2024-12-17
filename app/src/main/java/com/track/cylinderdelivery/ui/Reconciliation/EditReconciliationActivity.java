@@ -71,6 +71,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
     private EditText edtRoNumber,edtSoDate,edtSOGeneratedBy;
     private String roDate;
     private NiceSpinner NSCompany1,NSCompany2,NSWarehouse;
+    private TextView txtUserName2,txtUserName1;
     private static final int MY_SOCKET_TIMEOUT_MS = 100000;
     private SharedPreferences settings;
     private ArrayList<HashMap<String,String>> activeCompanyList;
@@ -144,6 +145,8 @@ public class EditReconciliationActivity extends AppCompatActivity {
         roDate=df1.format(c);
         NSCompany1=findViewById(R.id.NSCompany1);
         NSCompany2=findViewById(R.id.NSCompany2);
+        txtUserName2=findViewById(R.id.txtUserName2);
+        txtUserName1=findViewById(R.id.txtUserName1);
         NSWarehouse=findViewById(R.id.NSWarehouse);
         edtSOGeneratedBy=findViewById(R.id.edtPOGeneratedBy);
         edtSOGeneratedBy.setText(mapdata.get("generatedBy"));
@@ -307,6 +310,10 @@ public class EditReconciliationActivity extends AppCompatActivity {
                         if(NSCompany1.getSelectedItem().toString().equals(activeCompanyList.get(i).get("text"))){
                             comp_value=activeCompanyList.get(i).get("value");
                             comp_text=activeCompanyList.get(i).get("text");
+                            NSWarehouse.setVisibility(View.VISIBLE);
+                            txtUserName2.setVisibility(View.VISIBLE);
+                            NSCompany2.setVisibility(View.VISIBLE);
+                            txtUserName1.setVisibility(View.VISIBLE);
                             callGetCompanyClientDataApi(comp_value);
                             callGetActiveWarehouseList(comp_value);
                             break;
@@ -331,6 +338,10 @@ public class EditReconciliationActivity extends AppCompatActivity {
                 NSCompany2.setError(null);
                 Log.d("getSelectedItem()==>",NSCompany2.getSelectedItem()+"");
                 hideSoftKeyboard(view);
+
+                NSWarehouse.setVisibility(View.GONE);
+                txtUserName2.setVisibility(View.GONE);
+
                 complyClientPosition=position;
                 if(position!=0) {
 
@@ -363,6 +374,8 @@ public class EditReconciliationActivity extends AppCompatActivity {
                 NSWarehouse.setError(null);
                 Log.d("getSelectedItem()==>",NSWarehouse.getSelectedItem()+"");
                 hideSoftKeyboard(view);
+                NSCompany2.setVisibility(View.GONE);
+                txtUserName1.setVisibility(View.GONE);
                 wareHousePosition=position;
                 if(position!=0) {
 
@@ -405,9 +418,14 @@ public class EditReconciliationActivity extends AppCompatActivity {
                 JSONObject j;
                 try {
                     j = new JSONObject(Response);
+
                     if(j.getBoolean("status")){
                         wareHouseDataList=new ArrayList<>();
                         JSONArray datalist=j.getJSONArray("data");
+                        if(datalist.length()==0){
+                            NSWarehouse.setVisibility(View.GONE);
+                            txtUserName2.setVisibility(View.GONE);
+                        }
                         List<String> imtes=new ArrayList<>();
                         imtes.add("Select");
                         for(int i=0;i<datalist.length();i++){
@@ -494,6 +512,10 @@ public class EditReconciliationActivity extends AppCompatActivity {
                     if(j.getBoolean("status")){
                         companyClientDataList=new ArrayList<>();
                         JSONArray datalist=j.getJSONArray("data");
+                        if(datalist.length()==0){
+                            NSCompany2.setVisibility(View.GONE);
+                            txtUserName1.setVisibility(View.GONE);
+                        }
                         List<String> imtes=new ArrayList<>();
                         imtes.add("Select");
                         for(int i=0;i<datalist.length();i++){
@@ -768,6 +790,7 @@ public class EditReconciliationActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 Log.i("Camera", "G : " + grantResults[0]);
@@ -839,6 +862,13 @@ public class EditReconciliationActivity extends AppCompatActivity {
         }else {
             jsonBody.put("ROId",ROId);
         }*/
+        if(comp_client_value==null){
+            comp_client_value="0";
+        }
+        if(warehouse_value==null){
+            warehouse_value="0";
+        }
+
         jsonBody.put("ReconciliationNumber",REconNumber);
         jsonBody.put("CompanyId",Integer.parseInt(comp_value));
         jsonBody.put("UserId",Integer.parseInt(comp_client_value));

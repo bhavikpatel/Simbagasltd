@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Apiclient {
+    public static final String API_URL_PO = MySingalton.getInstance().URL +"/api/MobPurchaseOrder/";
     public static final String API_URL = MySingalton.getInstance().URL +"/api/MobSalesOrder/";
     public static final String API_URL_ROCI = MySingalton.getInstance().URL +"/api/MobROCylinderMapping/";
     public static final String API_URL_CWMI = MySingalton.getInstance().URL +"/api/MobCylinderWarehouseMapping/";
@@ -17,6 +18,17 @@ public class Apiclient {
     private static Gson gson = new GsonBuilder()
             .setLenient()
             .create();
+
+    public static Retrofit getClientPO() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(API_URL_PO)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }
 
     public static Retrofit getClient() {
         if (retrofit == null) {
@@ -28,6 +40,7 @@ public class Apiclient {
         }
         return retrofit;
     }
+
     public static Retrofit getClientROCI() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

@@ -47,15 +47,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fromUser" />
-        <org.angmarch.views.NiceSpinner
+
+        <com.track.cylinderdelivery.utils.CustomSpinner
             android:id="@+id/spFromWarehouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:textTint="@color/black"
-            app:popupTextAlignment="start"
+            android:background="@color/veryLightGray"
             android:textSize="20sp"
+            android:padding="10dp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />
+   <!--     <org.angmarch.views.NiceSpinner
+            android:id="@+id/spFromWarehouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/veryLightGray"
-            />
+            android:textSize="20sp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />-->
+
         <TextView
             android:id="@+id/txtWarehouse1"
             android:layout_marginTop="5dp"
@@ -63,7 +73,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/towarehouse" />
-        <org.angmarch.views.NiceSpinner
+        <com.track.cylinderdelivery.utils.CustomSpinner
+            android:id="@+id/spToWarehouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/veryLightGray"
+            android:textSize="20sp"
+            android:padding="10dp"
+            app:popupTextAlignment="start"
+            app:textTint="@color/black" />
+<!--        <org.angmarch.views.NiceSpinner
             android:id="@+id/spToWarehouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +90,7 @@
             app:popupTextAlignment="start"
             android:textSize="20sp"
             android:backgroundTint="@color/veryLightGray"
-            />
+            />-->
 
         <LinearLayout
             android:orientation="horizontal"

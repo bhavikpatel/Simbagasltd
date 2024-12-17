@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
@@ -32,6 +33,8 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -57,7 +60,10 @@ import com.android.volley.toolbox.Volley;
 import com.track.cylinderdelivery.MySingalton;
 import com.track.cylinderdelivery.R;
 import com.track.cylinderdelivery.utils.Apiclient;
+import com.track.cylinderdelivery.utils.CustomSpinner;
+import com.track.cylinderdelivery.utils.FileUtils;
 import com.track.cylinderdelivery.utils.MarketPlaceApiInterface;
+import com.track.cylinderdelivery.utils.MarketPlaceApiInterfacePO;
 import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
@@ -76,6 +82,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -98,8 +105,11 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
     String PONumber;
     EditText edtPoNumber,edtPoDate,edtPOGeneratedBy,edtClientPOReference;
     Calendar myCalendar;
-    NiceSpinner NSUserName;
+    ///NiceSpinner NSUserName;
+    CustomSpinner NSUserName1;
+    
     private int userpos=0;
+    private String sel_username="";
     Button btnCancel,btnSaveAndContinue;
     private String PoNumber;
     private String PoDate;
@@ -144,6 +154,7 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
     private String imgUrl;
 
     private static final int REQUEST_IMAGE_PICK = 102;
+    private static final int REQUEST_CODE_SELECT_DOCUMENT=103;
     private static final int PERMISSION_REQUEST_CODE = 200;
 
     @Override
@@ -162,8 +173,16 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         txtClientInfo=findViewById(R.id.txtClientInfo);
         edtPoNumber=findViewById(R.id.edtPoNumber);
         edtPoDate=findViewById(R.id.edtPoDate);
+        Date c = Calendar.getInstance().getTime();
+        Log.d("soDate==>",c+"");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        edtPoDate.setText(formattedDate);
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        PoDate=df1.format(c);
         spSorting=context.getSharedPreferences("POFilter",MODE_PRIVATE);
-        NSUserName=findViewById(R.id.NSUserName);
+        NSUserName1=findViewById(R.id.NSUserName1);
+        NSUserName1.setText("Select");
         edtPOGeneratedBy=findViewById(R.id.edtPOGeneratedBy);
         btnCancel=findViewById(R.id.btnCancel);
         btnSaveAndContinue=findViewById(R.id.btnSaveAndContinue);
@@ -223,15 +242,34 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                 //dispatchTakePictureIntent();
             }
         });
-        edtPoDate.setOnClickListener(new View.OnClickListener() {
+/*        edtPoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(context, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
-        NSUserName.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
+        });*/
+/*        NSUserName1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("checkedId==>",position+"");
+                //hideSoftKeyboard(view);
+                userpos=position;
+                if(position!=0) {
+                    UserId = Integer.parseInt(userList.get(position - 1).get("userId"));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
+
+
+
+       /* NSUserName1.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
@@ -241,18 +279,18 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                     UserId = Integer.parseInt(userList.get(position - 1).get("userId"));
                 }
             }
-        });
-        NSUserName.setOnClickListener(new View.OnClickListener() {
+        });*/
+        NSUserName1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideSoftKeyboard(v);
+              //  hideSoftKeyboard(v);
             }
         });
         NSProduct.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
                 Log.d("checkedId==>",position+"");
-                hideSoftKeyboard(view);
+               // hideSoftKeyboard(view);
                 prodpos=position;
                 if(position!=0) {
                     productid = Integer.parseInt(productList.get(position - 1).get("productId"));
@@ -264,7 +302,7 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         NSProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideSoftKeyboard(v);
+                //hideSoftKeyboard(v);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -294,6 +332,14 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                     PoNumber=edtPoNumber.getText().toString();
                     //PoDate=edtPoDate.getText().toString();
                     POGeneratedBy=edtPOGeneratedBy.getText().toString();
+                    sel_username=NSUserName1.getText().toString();
+                    userpos=0;
+                    for(int i=0;i<userList.size();i++){
+                        if(sel_username.equals(userList.get(i).get("fullName"))){
+                            UserId=Integer.parseInt(userList.get(i).get("userId"));
+                            userpos=i+1;
+                        }
+                    }
                     if(validate()){
                         try {
                             callAddEditPO();
@@ -309,7 +355,7 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideSoftKeyboard(v);
+                //hideSoftKeyboard(v);
                 if(validate1()){
                     quantity=Integer.parseInt(edtQuantity.getText().toString()+"");
                     qtygaskg=Integer.parseInt(edtgasqty.getText().toString()+"");
@@ -400,6 +446,14 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                 checkStoragePermission();
             }
         });
+        builder.setNeutralButton("Document", new DialogInterface.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                    checkStoragePermission1();
+            }
+        });
         builder.setCancelable(false);
         builder.show();
     }
@@ -414,6 +468,27 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         openImagePicker();
 
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES. M)
+    @SuppressLint("NewApi")
+    private void checkStoragePermission1() {
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            openDocPicker();
+        }else{
+            openDocPicker();
+        }
+    }
+
+    private void openDocPicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("application/pdf"); // You can specify file type like "application/pdf" for PDFs
+        intent.addCategory(Intent.CATEGORY_OPENABLE); // Ensures the file picker can open files
+        startActivityForResult(Intent.createChooser(intent, "Select Document"), REQUEST_CODE_SELECT_DOCUMENT);
+
+    }
+
     private void openImagePicker() {
         Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
@@ -761,10 +836,10 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
             edtPoDate.setError(null);
         }
         if(userpos<=0){
-            NSUserName.setError("Field is Required.");
+            NSUserName1.setError("Field is Required.");
             valid=false;
         }else {
-            NSUserName.setError(null);
+            NSUserName1.setError(null);
         }
         if(POGeneratedBy.isEmpty()){
             edtPOGeneratedBy.setError("Field is Required.");
@@ -827,7 +902,15 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
                            imtes.add(dataobj.getString("fullName") + "");
                            userList.add(map);
                        }
-                        NSUserName.attachDataSource(imtes);
+                        ArrayAdapter<String> customSpinnerAdapter = new ArrayAdapter<>(
+                                context,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                imtes
+                        );
+                        NSUserName1.setAdapter(customSpinnerAdapter);
+
+                        //NSUserName1.attachDataSource(imtes);
+
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
@@ -990,7 +1073,133 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
             if(photo!=null) {
                 uploadimage(photo,100);
             }
+        }else if(requestCode == REQUEST_CODE_SELECT_DOCUMENT && resultCode == RESULT_OK) {
+            Uri documentUri = data.getData();
+            Log.d("documentUri==>",documentUri.toString()+"");
+           // if (documentUri != null) {
+                //String documentPath = getFilePath(documentUri);
+                if (documentUri != null) {
+                    // Upload the document to the server
+                    uploadDocument(documentUri);
+                } else {
+                    Toast.makeText(this, "Unable to get the file path.", Toast.LENGTH_SHORT).show();
+                }
+            //}
         }
+    }
+
+    private void uploadDocument(Uri documentPath) {
+        final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
+        progressDialog.show();
+
+        // Create the file object using the file path
+        File file = FileUtils.convertUriToFile(this, documentPath);
+
+        if (!file.exists()) {
+            Toast.makeText(context, "Document not found", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
+
+        // Setup Retrofit API client and interface
+        MarketPlaceApiInterfacePO apiService = Apiclient.getClientPO().create(MarketPlaceApiInterfacePO.class);
+
+        // Prepare the request body for the document file
+        RequestBody requestFile = RequestBody.create(MediaType.parse("application/*"), file);  // Adjust the MIME type for your document (e.g., application/pdf)
+
+        // Create MultipartBody.Part for file upload
+        MultipartBody.Part documentPart = MultipartBody.Part.createFormData("files", file.getName(), requestFile);
+
+        // Make the API call to upload the document
+        apiService.UpdateMarketPlaceProducts(Collections.singletonList(documentPart))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                        try {
+                            // Handle the server response and get the document URL
+                            JSONObject j = new JSONObject(response.body().string());
+                            String documentUrl = j.getString("data");
+                            txtClientPOUpload.setText(documentUrl);  // You can display the URL or other response data here
+                            Log.d("onResponse==>", "" + documentUrl);
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d("onFailure", "onResponse: " + t.getMessage());
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
+
+    // Function to get the file path from the URI
+    private String getFilePath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA }; // We use this for file paths in the media store
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            String filePath = cursor.getString(columnIndex);
+            cursor.close();
+            return filePath;
+        }
+        return null;  // You can handle other types of URIs like content URIs here if needed
+    }
+
+
+
+    private void uploadimage(Bitmap signatureBitmap, int quality) {
+        final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
+        progressDialog.show();
+        MarketPlaceApiInterfacePO apiService = Apiclient.getClientPO().create(MarketPlaceApiInterfacePO.class);
+        File file = new File(getCacheDir().getPath() +"photo"+PONumber+".jpg");
+        try {
+            OutputStream fOut = new FileOutputStream(file);
+            // Directly write the Bitmap as PNG without compression
+            signatureBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut); // 100% quality (no compression)
+
+            fOut.flush();
+            fOut.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        Log.d("requestbody==>",requestFile+"");
+        MultipartBody.Part BusinessImage = MultipartBody.Part.
+                createFormData("files", file.getName(), requestFile);
+        apiService.UpdateMarketPlaceProducts(Collections.singletonList(BusinessImage))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                        JSONObject j;
+                        try {
+
+                            j = new JSONObject(response.body().string()+"");
+                            imgUrl=j.getString("data");
+                            txtClientPOUpload.setText(imgUrl);
+                            Log.d("onResponse==>", "" + imgUrl);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        imgUrl="";
+                        Log.d("onFailure", "onResponse: " + t.getMessage());
+                        progressDialog.dismiss();
+
+                    }
+                });
     }
     private Bitmap uriToBitmap(Uri uri) {
         Bitmap bitmap = null;
@@ -1005,61 +1214,5 @@ public class AddPurchaseOrderActivity extends AppCompatActivity {
         }
         return bitmap;
     }
-    private void uploadimage(Bitmap signatureBitmap, int quality) {
-        final TransparentProgressDialog progressDialog = new TransparentProgressDialog(context, R.drawable.loader);
-        progressDialog.show();
-        MarketPlaceApiInterface apiService = Apiclient.getClient().create(MarketPlaceApiInterface.class);
-        File file = new File(getCacheDir().getPath() +"photo"+PONumber+".png");
-        try {
-            OutputStream fOut = new FileOutputStream(file);
-            signatureBitmap.compress(Bitmap.CompressFormat.PNG,quality,fOut);
 
-            fOut.flush();
-            fOut.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-        Log.d("requestbody==>",requestFile+"");
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("text/plain"), file);
-        MultipartBody.Part BusinessImage = MultipartBody.Part.
-                createFormData("files", file.getName(), requestFile);
-        apiService.UpdateMarketPlaceProducts(Collections.singletonList(BusinessImage))
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                        JSONObject j;
-                        try {
-                            //imageView2.setImageBitmap(signatureBitmap);
-                            j = new JSONObject(response.body().string()+"");
-                            imgUrl=j.getString("data");
-                            txtClientPOUpload.setText(imgUrl);
-                            Log.d("onResponse==>", "" + imgUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        progressDialog.dismiss();
-                       /* Intent intent=new Intent();
-                        intent.putExtra("imgUrl",imgUrl);
-                        setResult(222,intent);
-                        finish();*/
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        imgUrl="";
-                        Log.d("onFailure", "onResponse: " + t.getMessage());
-                        progressDialog.dismiss();
-                       /* Intent intent=new Intent();
-                        intent.putExtra("scanlist","Error");
-                        setResult(222,intent);
-                        finish();*/
-                    }
-                });
-    }
 }

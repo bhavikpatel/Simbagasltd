@@ -128,7 +128,9 @@ public class Dashboard extends BaseActivity {
         double versionNamecheck=Double.parseDouble(versionName);
         txtVersion.setText("Version: "+ versionName);
         Log.d("versionNameCheck==>",versionNamecheck+"");
+
         callVersionCheckAPI(versionNamecheck);
+
         txtLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

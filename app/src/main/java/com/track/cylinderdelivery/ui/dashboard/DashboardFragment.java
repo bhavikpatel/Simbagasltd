@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -77,13 +78,14 @@ public class DashboardFragment extends Fragment {
     private DashboardList2Adapter dashboardList2Adapter;
     private Button btnReceivCyl,btnHoldCyl;
     private DashboardList3Adapter dashboardList3Adapter;
+    private TextView txtTotalCylinder;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         context=getActivity();
         setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Dashboard");
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Dashboard");
         recyclerView=root.findViewById(R.id.rvDashboard);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -94,6 +96,7 @@ public class DashboardFragment extends Fragment {
         Log.d("homeView==>",homeview+"");
         btnReceivCyl=(Button)root.findViewById(R.id.btnReceivCyl);
         btnHoldCyl=(Button)root.findViewById(R.id.btnHoldCyl);
+        txtTotalCylinder=(TextView) root.findViewById(R.id.txtTotalCylinder);
 
         if(homeview.equals("SuperAdmin")){
             dataList=null;
@@ -119,6 +122,7 @@ public class DashboardFragment extends Fragment {
                 btnHoldCyl.setBackgroundColor(getResources().getColor(R.color.lightGreen));
 
                 dataList=null;
+                txtTotalCylinder.setText("");
                 callReceivableCylinder();
             }
         });
@@ -133,6 +137,7 @@ public class DashboardFragment extends Fragment {
                 btnHoldCyl.setBackgroundColor(getResources().getColor(R.color.green));
 
                 dataList=null;
+                txtTotalCylinder.setText("");
                 callHoldedCylinder();
             }
         });
@@ -207,6 +212,7 @@ public class DashboardFragment extends Fragment {
                 try {
                     j = new JSONObject(Response);
                     totalRecord=j.getInt("totalRecord");
+                    txtTotalCylinder.setText("Total Cylinder: "+totalRecord+"");
                     JSONArray jsonArray=j.getJSONArray("list");
                     Boolean flgfirstload=false;
                     if(dataList==null){
@@ -312,6 +318,7 @@ public class DashboardFragment extends Fragment {
                 try {
                     j = new JSONObject(Response);
                     totalRecord=j.getInt("totalRecord");
+                    txtTotalCylinder.setText("Total Cylinder: "+totalRecord+"");
                     JSONArray jsonArray=j.getJSONArray("list");
                     Boolean flgfirstload=false;
                     if(dataList==null){
@@ -421,6 +428,7 @@ public class DashboardFragment extends Fragment {
                 try {
                     j = new JSONObject(Response);
                     totalRecord=j.getInt("totalRecord");
+                    txtTotalCylinder.setText("Total Cylinder: "+totalRecord+"");
                     JSONArray jsonArray=j.getJSONArray("list");
                     Boolean flgfirstload=false;
                     if(dataList==null){

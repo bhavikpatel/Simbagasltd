@@ -13,6 +13,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,6 +52,7 @@ import com.track.cylinderdelivery.utils.TransparentProgressDialog;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,6 +73,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
     private EditText edtRoNumber,edtSoDate,edtSOGeneratedBy;
     private String roDate;
     private NiceSpinner NSCompany1,NSCompany2,NSWarehouse;
+    private TextView txtUserName2,txtUserName1;
     private static final int MY_SOCKET_TIMEOUT_MS = 100000;
     private SharedPreferences settings;
     private ArrayList<HashMap<String,String>> activeCompanyList;
@@ -80,7 +83,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
     private int complyClientPosition=0;
     private int wareHousePosition=0;
     private String comp_value;
-    private String comp_client_value;
+    private String comp_client_value="0";
     private String comp_client_text;
     private String comp_text;
     Button btnCancel,btnSaveAndContinue;
@@ -111,7 +114,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     //EditText edtVehicleno;
     String SignImage="",PhotoImage="";
-    private String warehouse_value="";
+    private String warehouse_value="0";
     private String warehouse_text="";
 
     @Override
@@ -162,6 +165,8 @@ public class AddReconciliationActivity extends AppCompatActivity {
         btnScanCylinders=findViewById(R.id.btnScanCylinders);
         btnSaveAndContinue=findViewById(R.id.btnSaveAndContinue);
         txtCylinderNos=findViewById(R.id.txtCylinderNos);
+        txtUserName2=findViewById(R.id.txtUserName2);
+        txtUserName1=findViewById(R.id.txtUserName1);
         qrcodeList=new ArrayList<String>();
         imtes=new ArrayList<>();
         btnAdd=findViewById(R.id.btnAdd);
@@ -169,6 +174,8 @@ public class AddReconciliationActivity extends AppCompatActivity {
         btnLastSubmit=findViewById(R.id.btnLastSubmit);
         btnSaveAsDraft=findViewById(R.id.btnSaveAsDraft);
         sODetailList=new ArrayList<>();
+        companyClientDataList=new ArrayList<>();
+        wareHouseDataList=new ArrayList<>();
 
 
         if(isNetworkConnected()) {
@@ -305,8 +312,16 @@ public class AddReconciliationActivity extends AppCompatActivity {
                         if(NSCompany1.getSelectedItem().equals(activeCompanyList.get(i).get("text"))){
                             comp_value=activeCompanyList.get(i).get("value");
                             comp_text=activeCompanyList.get(i).get("text");
+                            companyClientDataList.clear();
+                            wareHouseDataList.clear();
+                            NSWarehouse.setVisibility(View.VISIBLE);
+                            txtUserName2.setVisibility(View.VISIBLE);
+                            NSCompany2.setVisibility(View.VISIBLE);
+                            txtUserName1.setVisibility(View.VISIBLE);
                             callGetCompanyClientDataApi(comp_value);
                             callGetActiveWarehouseList(comp_value);
+                            NSWarehouse.setSelectedIndex(0);
+                            NSCompany2.setSelectedIndex(0);
                             break;
                         }
                     }
@@ -329,9 +344,11 @@ public class AddReconciliationActivity extends AppCompatActivity {
                 NSCompany2.setError(null);
                 Log.d("getSelectedItem()==>",NSCompany2.getSelectedItem()+"");
                 hideSoftKeyboard(view);
+                NSWarehouse.setVisibility(View.GONE);
+                txtUserName2.setVisibility(View.GONE);
+
                 complyClientPosition=position;
                 if(position!=0) {
-
                     for(int i=0;i<companyClientDataList.size();i++){
                         if(NSCompany2.getSelectedItem().equals(companyClientDataList.get(i).get("fullName"))){
                             comp_client_value=companyClientDataList.get(i).get("userId");
@@ -343,7 +360,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                         }
                     }
                 }else {
-                    comp_client_value="";
+                    comp_client_value="0";
                     comp_client_text="";
                 }
             }
@@ -361,6 +378,8 @@ public class AddReconciliationActivity extends AppCompatActivity {
                 NSWarehouse.setError(null);
                 Log.d("getSelectedItem()==>",NSWarehouse.getSelectedItem()+"");
                 hideSoftKeyboard(view);
+                NSCompany2.setVisibility(View.GONE);
+                txtUserName1.setVisibility(View.GONE);
                 wareHousePosition=position;
                 if(position!=0) {
 
@@ -375,7 +394,7 @@ public class AddReconciliationActivity extends AppCompatActivity {
                         }
                     }
                 }else {
-                    warehouse_value="";
+                    warehouse_value="0";
                     warehouse_text="";
                 }
             }
@@ -399,15 +418,22 @@ public class AddReconciliationActivity extends AppCompatActivity {
             @Override
             public void onResponse(String Response) {
                 progressDialog.dismiss();
+                wareHouseDataList.clear();
+                NSWarehouse.attachDataSource(new ArrayList<>());
+                List<String> imtes=new ArrayList<>();
+                imtes.add("Select");
                 Log.d("resonse ==>",Response+"");
                 JSONObject j;
                 try {
                     j = new JSONObject(Response);
                     if(j.getBoolean("status")){
-                        wareHouseDataList=new ArrayList<>();
+
                         JSONArray datalist=j.getJSONArray("data");
-                        List<String> imtes=new ArrayList<>();
-                        imtes.add("Select");
+                        if(datalist.length()==0){
+                            NSWarehouse.setVisibility(View.GONE);
+                            txtUserName2.setVisibility(View.GONE);
+                        }
+
                         for(int i=0;i<datalist.length();i++){
                             HashMap<String,String> map=new HashMap<>();
                             JSONObject dataobj=datalist.getJSONObject(i);
@@ -416,13 +442,22 @@ public class AddReconciliationActivity extends AppCompatActivity {
                             imtes.add(dataobj.getString("name") + "");
                             wareHouseDataList.add(map);
                         }
-                        NSWarehouse.attachDataSource(imtes);
+
+
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                // Create the ArrayAdapter and set it to a Spinner (or any other UI component that needs the data)
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, imtes);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                // Assuming NSCompany2 is a Spinner, set the adapter
+                NSWarehouse.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                //NSWarehouse.attachDataSource(imtes);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -475,15 +510,21 @@ public class AddReconciliationActivity extends AppCompatActivity {
             @Override
             public void onResponse(String Response) {
                 progressDialog.dismiss();
+                companyClientDataList.clear();
+                List<String> imtes=new ArrayList<>();
+                imtes.add("Select");
                 Log.d("resonse ==>",Response+"");
                 JSONObject j;
                 try {
                     j = new JSONObject(Response);
                     if(j.getBoolean("status")){
-                        companyClientDataList=new ArrayList<>();
+
                         JSONArray datalist=j.getJSONArray("data");
-                        List<String> imtes=new ArrayList<>();
-                        imtes.add("Select");
+                        if(datalist.length()==0){
+                            NSCompany2.setVisibility(View.GONE);
+                            txtUserName1.setVisibility(View.GONE);
+                        }
+
                         for(int i=0;i<datalist.length();i++){
                             HashMap<String,String> map=new HashMap<>();
                             JSONObject dataobj=datalist.getJSONObject(i);
@@ -492,13 +533,19 @@ public class AddReconciliationActivity extends AppCompatActivity {
                             imtes.add(dataobj.getString("fullName") + "");
                             companyClientDataList.add(map);
                         }
-                        NSCompany2.attachDataSource(imtes);
                     }else {
                         Toast.makeText(context, j.getString("message")+"", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                // Create the ArrayAdapter and set it to a Spinner (or any other UI component that needs the data)
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, imtes);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                // Assuming NSCompany2 is a Spinner, set the adapter
+                NSCompany2.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -745,7 +792,8 @@ public class AddReconciliationActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 Log.i("Camera", "G : " + grantResults[0]);
@@ -817,6 +865,15 @@ public class AddReconciliationActivity extends AppCompatActivity {
         }else {
             jsonBody.put("ROId",ROId);
         }*/
+
+        if(comp_client_value==null){
+            comp_client_value="0";
+        }
+        if(warehouse_value==null){
+            warehouse_value="0";
+        }
+
+        
         jsonBody.put("ReconciliationNumber",REconNumber);
         jsonBody.put("CompanyId",Integer.parseInt(comp_value));
         jsonBody.put("UserId",Integer.parseInt(comp_client_value));
