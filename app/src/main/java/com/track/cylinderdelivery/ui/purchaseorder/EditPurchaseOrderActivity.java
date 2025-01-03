@@ -78,6 +78,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -200,7 +201,12 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
         lvTab2.setVisibility(View.GONE);
         edtPoNumber.setText(mapdata.get("poNumber"));
         PONumber=edtPoNumber.getText().toString();
-        edtPoDate.setText(mapdata.get("strPODate"));
+        Date c = Calendar.getInstance().getTime();
+        Log.d("soDate==>",c+"");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        edtPoDate.setText(formattedDate);
+        //edtPoDate.setText(mapdata.get("strPODate"));
         PoDate=mapdata.get("poDate");
         edtPOGeneratedBy.setText(mapdata.get("poGeneratedBy"));
         edtClientPOReference.setText(mapdata.get("clientPOReference"));
@@ -241,14 +247,14 @@ public class EditPurchaseOrderActivity extends AppCompatActivity {
             }
         });
 
-        edtPoDate.setOnClickListener(new View.OnClickListener() {
+/*        edtPoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(context, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
-        });
+        });*/
 /*        NSUserName.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
